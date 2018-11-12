@@ -20,25 +20,111 @@ main:
 	int     0x10                    ; set video to vga mode
 
 	sub     sp, 6                   ; three local stack variables, bp - 2 = row iter, bp - 4 = col iter, bp - 6 = color
-	mov     word [bp - 6], 73        ; start at color
+;________________________TOP BORDER________________________________________________________
+	mov     word [bp - 6], 50        ; start at color
 	mov     word [bp - 2], 3        ; start row iter at 0
 	mov     word [bp - 4], 0        ; start col iter at 0
+
+_draw_border:
+;	push    bp                      ; 16-bit version of prolog;
+;	mov     bp, sp
+;	sub     sp, 6                   ;bp-2 row, bp-4 col, bp-6 color.
 	
-	call _draw_block
-	
-.border_top_loop:
-	cmp   word [bp-4], 10  ;number of blocks
-	jle   .continue_border_top
+	cmp   word [bp - 4], 32           ;<number of blocks
+	jl   .continue_border_top
 	jmp   .done_border_top
 	
 .continue_border_top:
-	add word [bp-4], 10
-	mov     word [bp - 6], 73        ; start at color
-	mov     word [bp - 2], 3        ; start row iter at 0
+
+	
 	call _draw_block
+	
+	add     word [bp - 4], 1           ;block-sized spaces between blocks (1=adjacent)
+	jmp _draw_border
 .done_border_top:
+;	mov     sp, bp
+;	pop     bp
+;	ret
+;________________________END TOP BORDER___________________________________________
+
+;________________________BOTTOM BORDER________________________________________________________
+	mov     word [bp - 6], 50        ; start at color
+	mov     word [bp - 2], 19        ; start row iter at 0
+	mov     word [bp - 4], 0        ; start col iter at 0
+
+_draw_b_border:
+;	push    bp                      ; 16-bit version of prolog;
+;	mov     bp, sp
+;	sub     sp, 6                   ;bp-2 row, bp-4 col, bp-6 color.
 	
+	cmp   word [bp - 4], 32           ;<number of blocks
+	jl   .continue_b_border_top
+	jmp   .done_b_border_top
 	
+.continue_b_border_top:
+
+	
+	call _draw_block
+	
+	add     word [bp - 4], 1           ;block-sized spaces between blocks (1=adjacent)
+	jmp _draw_b_border
+.done_b_border_top:
+;	mov     sp, bp
+;	pop     bp
+;	ret
+;________________________END BOTTOM BORDER_____________________________________________
+;________________________LEFT BORDER________________________________________________________
+	mov     word [bp - 6], 50       ; start at color
+	mov     word [bp - 2], 4        ; start row iter at 0 (up/down)
+	mov     word [bp - 4], 0       ; start col iter at 0 (left/right)
+	;call _draw_block
+_draw_l_border:
+;	push    bp                      ; 16-bit version of prolog;
+;	mov     bp, sp
+;	sub     sp, 6                   ;bp-2 row, bp-4 col, bp-6 color.
+	
+	cmp   word [bp - 2], 19           ;<number of blocks
+	jl   .continue_l_border_top
+	jmp   .done_l_border_top
+	
+.continue_l_border_top:
+
+	call _draw_block
+	
+	add     word [bp - 2], 1           ;block-sized spaces between blocks (1=adjacent)
+	jmp _draw_l_border
+.done_l_border_top:
+;	mov     sp, bp
+;	pop     bp
+;	ret
+;________________________END LEFT BORDER_____________________________________________
+;________________________RIGHT BORDER________________________________________________________
+	mov     word [bp - 6], 50       ; start at color
+	mov     word [bp - 2], 4        ; start row iter at 0 (up/down)
+	mov     word [bp - 4], 31       ; start col iter at 0 (left/right)
+	;call _draw_block
+_draw_r_border:
+;	push    bp                      ; 16-bit version of prolog;
+;	mov     bp, sp
+;	sub     sp, 6                   ;bp-2 row, bp-4 col, bp-6 color.
+	
+	cmp   word [bp - 2], 19           ;<number of blocks
+	jl   .continue_r_border_top
+	jmp   .done_r_border_top
+	
+.continue_r_border_top:
+
+	call _draw_block
+	
+	add     word [bp - 2], 1           ;block-sized spaces between blocks (1=adjacent)
+	jmp _draw_r_border
+.done_r_border_top:
+;	mov     sp, bp
+;	pop     bp
+;	ret
+;________________________END RIGHT BORDER_____________________________________________
+	
+jmp .loop_forever_main
 ; di - row
 ; si - column
 ; dx - color
@@ -200,28 +286,32 @@ task_d:
 	; does not terminate or return
 
 ;_________________________________________________________
+; di - row
+; si - column
+; dx - color
 _draw_block:
 	mov     ax, [bp - 2]            ; copy row iter
 	mov     bx, 10                  ; block height
 	imul    bx
+	
 	mov     di, ax                  ; row offset
 	mov     ax, [bp - 4]            ; copy col iter
-
 	imul    bx
+	
 	mov     si, ax                  ; column offset
-
 	mov     dx, [bp - 6]
+	
 	push    bp                      ; 16-bit version of prolog
 	mov     bp, sp
 	mov     bx, 10                  ; block width
-	mov     bx, 10                 ; block height
+	;mov     bx, 10                 ; block height
 	sub     sp, 6                   ; three local variables, bp - 2 = row iter, bp - 4 = col iter, bp - 6 = color
 	mov     [bp - 6], dx
 	mov     ax, 0xA000
 	mov     es, ax                  ; need location in memory to write to
 	mov     word [bp - 2], 0        ; row iter
 .row_loop:
-	cmp     word [bp - 2], 10       ; < 15
+	cmp     word [bp - 2], 10       ; < 10
 	jne     .continue_row
 	jmp     .done_row
 	
@@ -229,7 +319,7 @@ _draw_block:
 .continue_row:
 	mov     word [bp - 4], 0        ; col iter
 .column_loop:
-	cmp     word [bp - 4], 10       ; < 15
+	cmp     word [bp - 4], 10       ; < 10
 	jne     .continue_column
 	jmp     .column_done
 .continue_column:
