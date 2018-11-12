@@ -21,30 +21,31 @@ main:
 
 	sub     sp, 6                   ; three local stack variables, bp - 2 = row iter, bp - 4 = col iter, bp - 6 = color
 	mov     word [bp - 6], 73        ; start at color
-	mov     word [bp - 2], 0        ; start row iter at 0
-.color_row_loop:
-	cmp     word [bp - 2], 1       ; with 15 x 15 blocks, we can fit roughly 13 rows
-	jne     .continue_color_row
+	mov     word [bp - 2], 6        ; start row iter at 0
+	mov     word [bp - 4], 5        ; start col iter at 0
+	;call _draw_block
+;.color_row_loop:
+;	cmp     word [bp - 2], 13       ; with 15 x 15 blocks, we can fit roughly 13 rows
+;	jne     .continue_color_row
 	;____________ADDED STUFF________
-	add     word [bp - 2], 2
-	cmp     word [bp - 2], 6
-	jge     .color_row_loop
+	;add     word [bp - 2], 2
+	;cmp     word [bp - 2], 6
+	;jge     .color_row_loop
 	;_______________END_____________
-	jmp     .loop_forever_main
-.continue_color_row:
-	mov     word [bp - 4], 0        ; start col iter at 0
-.color_column_loop:
-	cmp     word [bp - 4], 21       ; with 15 x 15 blocks, we can have roughly 21 columns
-	jne     .continue_color_column
-	jmp     .color_column_done
-.continue_color_column:
+;	jmp     .loop_forever_main
+;.continue_color_row:
+;	mov     word [bp - 4], 0        ; start col iter at 0
+;.color_column_loop:
+;	cmp     word [bp - 4], 21       ; with 15 x 15 blocks, we can have roughly 21 columns
+;	jne     .continue_color_column
+	;jmp     .color_column_done
+;.continue_color_column:
 	mov     ax, [bp - 2]            ; copy row iter
 	mov     bx, 15                  ; block height
 	imul    bx
 	mov     di, ax                  ; row offset
-
 	mov     ax, [bp - 4]            ; copy col iter
-	mov     bx, 15                  ; block width
+
 	imul    bx
 	mov     si, ax                  ; column offset
 
@@ -52,11 +53,11 @@ main:
 	call    _draw_block
 
 	;inc     word [bp - 6]           ; next color
-	inc     word [bp - 4]           ; next column
-	jmp     .color_column_loop
-.color_column_done:
-	inc     word [bp - 2]           ; next row
-	jmp     .color_row_loop
+;	inc     word [bp - 4]           ; next column
+;	jmp     .color_column_loop
+;.color_column_done:
+;	inc     word [bp - 2]           ; next row
+;	jmp     .color_row_loop
 
 ; di - row
 ; si - column
@@ -183,6 +184,8 @@ task_d:
 _draw_block:
 	push    bp                      ; 16-bit version of prolog
 	mov     bp, sp
+	mov     bx, 15                  ; block width
+	mov     bx, 15                  ; block height
 	sub     sp, 6                   ; three local variables, bp - 2 = row iter, bp - 4 = col iter, bp - 6 = color
 	mov     [bp - 6], dx
 	mov     ax, 0xA000
