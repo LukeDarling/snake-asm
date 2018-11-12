@@ -1,4 +1,4 @@
-bits 16
+ bits 16
 
 org 0x100
 
@@ -21,9 +21,28 @@ main:
 
 	sub     sp, 6                   ; three local stack variables, bp - 2 = row iter, bp - 4 = col iter, bp - 6 = color
 	mov     word [bp - 6], 73        ; start at color
-	mov     word [bp - 2], 6        ; start row iter at 0
-	mov     word [bp - 4], 5        ; start col iter at 0
-	;call _draw_block
+	mov     word [bp - 2], 3        ; start row iter at 0
+	mov     word [bp - 4], 0        ; start col iter at 0
+	
+	call _draw_block
+	
+.border_top_loop:
+	cmp   word [bp-4], 10  ;number of blocks
+	jle   .continue_border_top
+	jmp   .done_border_top
+	
+.continue_border_top:
+	add word [bp-4], 10
+	mov     word [bp - 6], 73        ; start at color
+	mov     word [bp - 2], 3        ; start row iter at 0
+	call _draw_block
+.done_border_top:
+	
+	
+; di - row
+; si - column
+; dx - color
+
 ;.color_row_loop:
 ;	cmp     word [bp - 2], 13       ; with 15 x 15 blocks, we can fit roughly 13 rows
 ;	jne     .continue_color_row
@@ -40,17 +59,17 @@ main:
 ;	jne     .continue_color_column
 	;jmp     .color_column_done
 ;.continue_color_column:
-	mov     ax, [bp - 2]            ; copy row iter
-	mov     bx, 15                  ; block height
-	imul    bx
-	mov     di, ax                  ; row offset
-	mov     ax, [bp - 4]            ; copy col iter
+	;mov     ax, [bp - 2]            ; copy row iter
+	;mov     bx, 15                  ; block height
+	;imul    bx
+	;mov     di, ax                  ; row offset
+	;mov     ax, [bp - 4]            ; copy col iter
 
-	imul    bx
-	mov     si, ax                  ; column offset
+	;imul    bx
+	;mov     si, ax                  ; column offset
 
-	mov     dx, [bp - 6]            ; current color
-	call    _draw_block
+	;mov     dx, [bp - 6]            ; current color
+	;call    _draw_block
 
 	;inc     word [bp - 6]           ; next color
 ;	inc     word [bp - 4]           ; next column
@@ -182,17 +201,27 @@ task_d:
 
 ;_________________________________________________________
 _draw_block:
+	mov     ax, [bp - 2]            ; copy row iter
+	mov     bx, 10                  ; block height
+	imul    bx
+	mov     di, ax                  ; row offset
+	mov     ax, [bp - 4]            ; copy col iter
+
+	imul    bx
+	mov     si, ax                  ; column offset
+
+	mov     dx, [bp - 6]
 	push    bp                      ; 16-bit version of prolog
 	mov     bp, sp
-	mov     bx, 15                  ; block width
-	mov     bx, 15                  ; block height
+	mov     bx, 10                  ; block width
+	mov     bx, 10                 ; block height
 	sub     sp, 6                   ; three local variables, bp - 2 = row iter, bp - 4 = col iter, bp - 6 = color
 	mov     [bp - 6], dx
 	mov     ax, 0xA000
 	mov     es, ax                  ; need location in memory to write to
 	mov     word [bp - 2], 0        ; row iter
 .row_loop:
-	cmp     word [bp - 2], 15       ; < 15
+	cmp     word [bp - 2], 10       ; < 15
 	jne     .continue_row
 	jmp     .done_row
 	
@@ -200,7 +229,7 @@ _draw_block:
 .continue_row:
 	mov     word [bp - 4], 0        ; col iter
 .column_loop:
-	cmp     word [bp - 4], 15       ; < 15
+	cmp     word [bp - 4], 10       ; < 15
 	jne     .continue_column
 	jmp     .column_done
 .continue_column:
