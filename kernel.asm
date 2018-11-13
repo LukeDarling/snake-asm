@@ -1,29 +1,43 @@
- bits 16
+; Snake-ASM
+; A classic Snake game written in Assembly.
+; Written by Amy Surrett, Jonathan DeGirolano, and Luke Darling.
+
+bits 16
 
 org 0x100
 
-SECTION .text
+SECTION		.text
+
 main:
-	mov     byte [task_status], 1               ; set main task to active
+	.main:
+		; set main task to active
+		mov     byte [task_status], 1               
 
-	lea     di, [task_a]                        ; create task a
-	call    spawn_new_task
+		; create task a
+		lea     di, [task_a]
+		call    spawn_new_task
 
-	lea     di, [task_b]                        ; create task b
-	call    spawn_new_task
-;START PRINT DEMO_______________________________________________________________________________________________________________	
-	push    bp                      ; 16-bit version of prolog
-	mov     bp, sp
-	
-	mov     ah, 0x0
-	mov     al, 0x13
-	int     0x10                    ; set video to vga mode
+		; create task b
+		lea     di, [task_b]
+		call    spawn_new_task
 
-	sub     sp, 6                   ; three local stack variables, bp - 2 = row iter, bp - 4 = col iter, bp - 6 = color
-;________________________TOP BORDER________________________________________________________
-	mov     word [bp - 6], 50        ; start at color
-	mov     word [bp - 2], 3        ; start row iter at 0
-	mov     word [bp - 4], 0        ; start col iter at 0
+
+		;										START PRINT DEMO
+		; 16-bit version of prolog
+		push    bp
+		mov     bp, sp
+		
+		mov     ah, 0x0
+		mov     al, 0x13
+		; set video to vga mode
+		int     0x10
+
+		; three local stack variables, bp - 2 = row iter, bp - 4 = col iter, bp - 6 = color
+		sub     sp, 6
+	;	
+		mov     word [bp - 6], 50        ; start at color
+		mov     word [bp - 2], 3        ; start row iter at 0
+		mov     word [bp - 4], 0        ; start col iter at 0
 
 _draw_border:
 ;	push    bp                      ; 16-bit version of prolog;
