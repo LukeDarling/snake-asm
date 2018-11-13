@@ -138,6 +138,25 @@ _draw_r_border:
 ;	ret
 ;________________________END RIGHT BORDER_____________________________________________
 	
+	mov     word [bp - 6], 0       ; start at color
+	mov     word [bp - 2], 8        
+	mov     word [bp - 4], 7       
+
+call _draw_block
+
+	mov     word [bp - 6], 50
+call _draw_snake_block
+
+
+    	mov     word [bp - 6], 0       ; start at color
+	mov     word [bp - 2], 8        
+	mov     word [bp - 4], 8       
+
+call _draw_block
+
+	mov     word [bp - 6], 50
+call _draw_snake_block
+
 jmp .loop_forever_main
 ; di - row
 ; si - column
@@ -359,9 +378,62 @@ _draw_block:
 	pop     bp
 	ret
 ;END PRINT DEMO_______________________________________________________________________________________________________________	
-	
-	
 
+	_draw_snake_block:
+	
+	mov     ax, [bp - 2]            ; copy row iter
+	mov     bx, 10                  ; block height
+	imul    bx
+	
+	mov     di, ax                  ; row offset
+	mov     ax, [bp - 4]            ; copy col iter
+	imul    bx
+	
+	mov     si, ax                  ; column offset
+	mov     dx, [bp - 6]
+	
+	push    bp                      ; 16-bit version of prolog
+	mov     bp, sp
+	mov     bx, 10                  ; block width
+	sub     sp, 6                   ; three local variables, bp - 2 = row iter, bp - 4 = col iter, bp - 6 = color
+	mov     [bp - 6], dx
+	mov     ax, 0xA000
+	mov     es, ax                  ; need location in memory to write to
+	mov     word [bp - 2], 1        ; row iter
+.row_loop:
+	cmp     word [bp - 2], 9       ; < 10
+	jne     .continue_row
+	jmp     .done_row
+	
+	
+.continue_row:
+	mov     word [bp - 4], 1        ; col iter
+.column_loop:
+	cmp     word [bp - 4], 9       ; < 10
+	jne     .continue_column
+	jmp     .column_done
+.continue_column:
+	mov     ax, di                  ; row
+	add     ax, [bp - 2]
+	mov     bx, 320                 ; size of row in vga
+	imul    bx
+
+	mov     bx, si                  ; col
+	add     bx, [bp - 4]
+	add     bx, ax
+
+	mov     cx, [bp - 6]            ; color
+	mov     [es:bx], cx             ; write to screen
+
+	inc     word [bp - 4]           ; increment col
+	jmp     .column_loop
+.column_done:
+	inc     word [bp - 2]           ; increment row
+	jmp     .row_loop
+.done_row:
+	mov     sp, bp
+	pop     bp
+	ret
 
 
 ; takes a char to print in dx
@@ -410,24 +482,3 @@ SECTION .data
 					dw stacks + (256 * 8)
 					dw stacks + (256 * 9)
 					dw stacks + (256 * 10)
-					dw stacks + (256 * 11)
-					dw stacks + (256 * 12)
-					dw stacks + (256 * 13)
-					dw stacks + (256 * 14)
-					dw stacks + (256 * 15)
-					dw stacks + (256 * 16)
-					dw stacks + (256 * 17)
-					dw stacks + (256 * 18)
-					dw stacks + (256 * 19)
-					dw stacks + (256 * 20)
-					dw stacks + (256 * 21)
-					dw stacks + (256 * 22)
-					dw stacks + (256 * 23)
-					dw stacks + (256 * 24)
-					dw stacks + (256 * 25)
-					dw stacks + (256 * 26)
-					dw stacks + (256 * 27)
-					dw stacks + (256 * 28)
-					dw stacks + (256 * 29)
-					dw stacks + (256 * 30)
-					dw stacks + (256 * 31)
