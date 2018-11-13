@@ -27,9 +27,9 @@ main:
 		push    bp
 		mov     bp, sp
 		
+		; set video to vga mode
 		mov     ah, 0x0
 		mov     al, 0x13
-		; set video to vga mode
 		int     0x10
 
 		; three local stack variables, bp - 2 = row iter, bp - 4 = col iter, bp - 6 = color
@@ -38,6 +38,15 @@ main:
 		mov     word [bp - 6], 50        ; start at color
 		mov     word [bp - 2], 3        ; start row iter at 0
 		mov     word [bp - 4], 0        ; start col iter at 0
+		
+		; start at color
+		mov     word [bp - 6], 50
+		; start row iter at 0     
+		mov     word [bp - 2], 2
+		; start col iter at 0
+		mov     word [bp - 4], 0
+
+;												FUNCTIONS
 
 _draw_border:
 ;	push    bp                      ; 16-bit version of prolog;
@@ -89,7 +98,7 @@ _draw_b_border:
 ;________________________END BOTTOM BORDER_____________________________________________
 ;________________________LEFT BORDER________________________________________________________
 	mov     word [bp - 6], 50       ; start at color
-	mov     word [bp - 2], 4        ; start row iter at 0 (up/down)
+	mov     word [bp - 2], 3        ; start row iter at 0 (up/down)
 	mov     word [bp - 4], 0       ; start col iter at 0 (left/right)
 	;call _draw_block
 _draw_l_border:
@@ -114,7 +123,7 @@ _draw_l_border:
 ;________________________END LEFT BORDER_____________________________________________
 ;________________________RIGHT BORDER________________________________________________________
 	mov     word [bp - 6], 50       ; start at color
-	mov     word [bp - 2], 4        ; start row iter at 0 (up/down)
+	mov     word [bp - 2], 3        ; start row iter at 0 (up/down)
 	mov     word [bp - 4], 31       ; start col iter at 0 (left/right)
 	;call _draw_block
 _draw_r_border:
@@ -137,25 +146,19 @@ _draw_r_border:
 ;	pop     bp
 ;	ret
 ;________________________END RIGHT BORDER_____________________________________________
-	
-	mov     word [bp - 6], 0       ; start at color
-	mov     word [bp - 2], 8        
-	mov     word [bp - 4], 7       
 
-call _draw_block
 
-	mov     word [bp - 6], 50
+mov     si, 8        
+mov     di, 7
+mov		dx, [colorBlue]
+
+;call _draw_block
+
+mov     si, 9        
+mov     di, 9
+
 call _draw_snake_block
 
-
-    	mov     word [bp - 6], 0       ; start at color
-	mov     word [bp - 2], 8        
-	mov     word [bp - 4], 8       
-
-call _draw_block
-
-	mov     word [bp - 6], 50
-call _draw_snake_block
 
 jmp .loop_forever_main
 ; di - row
@@ -379,7 +382,21 @@ _draw_block:
 	ret
 ;END PRINT DEMO_______________________________________________________________________________________________________________	
 
+	; di = row
+	; si = column
 	_draw_snake_block:
+
+	mov     word [bp - 4], si
+	mov     word [bp - 2], di
+
+	; Draw initial black square
+	mov		ax, [colorBlack]
+	mov     word [bp - 6], ax
+	call _draw_block
+
+	; Make the segments green
+	mov 	ax, [colorLightGreen]
+	mov 	word [bp - 6], ax
 	
 	mov     ax, [bp - 2]            ; copy row iter
 	mov     bx, 10                  ; block height
@@ -482,3 +499,20 @@ SECTION .data
 					dw stacks + (256 * 8)
 					dw stacks + (256 * 9)
 					dw stacks + (256 * 10)
+
+	colorBlack: dw 0
+	colorBlue: dw 0x1
+	colorGreen: dw 0x2
+	colorAqua: dw 0x3
+	colorRed: dw 0x4
+	colorPurple: dw 0x5
+	colorYellow: dw 0x6
+	colorLightGray: dw 0x7
+	colorDarkGray: dw 0x8
+	colorLightBlue: dw 0x9
+	colorLightGreen: dw 0xA
+	colorLightAqua: dw 0xB
+	colorLightRed: dw 0xC
+	colorLightPurple: dw 0xD
+	colorLightYellow: dw 0xE
+	colorWhite: dw 0xF
