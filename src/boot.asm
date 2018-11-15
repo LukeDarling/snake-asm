@@ -1,4 +1,4 @@
-; CpS 230 Lab 8: Amy M. Surrett (asurr876)
+; Snake-ASM by Amy Surrett, Jonathan DeGirolano, and Luke Darling
 ;---------------------------------------------------
 ; Bootloader that loads/runs a single-sector payload
 ; program from the boot disk.
@@ -14,41 +14,58 @@ section	.text
 org	0x7C00
 
 ; First instruction: jump over initial data and start executing code
-start:	jmp	main
+start:      jmp	main
 
 ; Embedded data
-boot_msg	db	"CpS 230 Bootloading Lab", 13, 10
-		db	"by Amy Surrett", 13, 10, 0
+boot_msg	db	"Snake-ASM", 13, 10, "by Amy Surrett, Jonathan DeGirolano, and Luke Darling", 13, 10, 0
 boot_disk	db	0		; Variable to store the number of the disk we boot from
 retry_msg	db	"Error reading payload from disk; retrying...", 13, 10, 0
 
 main:
-	; TODO: Set DS == CS (so data addressing is normal/easy)'
-	mov ds, [0x00]
-	; TODO: Save the boot disk number (we get it in register DL
-	mov byte [boot_disk], DL
-	; TODO: Set SS == 0x0800 (which will be the segment we load everything into later)
-	mov SS, [0x08]
-	; TODO: Set SP == 0x0000 (stack pointer starts at the TOP of segment; first push decrements by 2, to 0xFFFE)
-	mov sp, 0x0000
-	; TODO: Print the boot message/banner
-	mov	dx, boot_msg
-	call	puts
-	 
-	; TODO: use BIOS raw disk I/O to load sector 2 from disk number <boot_disk> into memory at 0800:0000h (retry on failure)
-.ioloop:
-	mov ax, ds ; you might have to use another segment if ds doesn't contain the address you need
-	mov es, ax
-	mov ah, 2
-	mov al, 3 ; size of your payload in bytes divided by sector size (512)
-	mov ch, 0 ; floppies only have 1 track so easy to determine
-	mov cl, 2 ; mbr is in sector 1 so payload starts at 2
-	mov dh, 0 ; floppies only have 1 head so each to determine
-	;mov dl, 0 ; this is going to vary, remember that dl is probably the current disk, check the helppc reference if you need a different disk
-	mov bx, 0 ; whatever offset you want to load
-	jc .ioloop     
+	; Set DS == CS (so data addressing is normal/easy)
+	;mov		ds, cs
+	; Save the boot disk number (we get it in register DL
+	push 	dx
+	; Set SS == 0x0800 (which will be the segment we load everything into later)
+	;mov 	ss, 0x0800
+	; Set SP == 0x0000 (stack pointer starts at the TOP of segment; first push decrements by 2, to 0xFFFE)
+	mov 	sp, 0x0000
+	; Print the boot message/banner
+	mov 	dx, boot_msg
+	call puts
+	pop 	dx
+	; use BIOS raw disk I/O to load sector 2 from disk number <boot_disk> into memory at 0800:0000h (retry on failure)
+	mov     ax, 0x800
+    mov     es, ax
+    mov     ah, 2
+    mov     al, 1
+
+    ; Which sector
+    mov     ch, 0
+
+    ; which sector
+    mov     cl, 2
+
+    ; Which head to load from
+    mov     dh, 0
+    mov     bx, 0
+
+    int     0x13
+
+    ; Jump if carry (jump if failed)
+    jc      .fail
+
+    ; Jump to another sector
+    ; jmp far es:0x0
 	; Finally, jump to address 0800h:0000h (sets CS == 0x0800 and IP == 0x0000)
 	jmp	0x0800:0x0000
+
+.fail:
+	push 	dx
+	mov		dx, retry_msg
+	call 	puts
+	pop		dx
+	jmp 	main
 
 ; print NUL-terminated string from DS:DX to screen using BIOS (INT 10h)
 ; takes NUL-terminated string pointed to by DS:DX

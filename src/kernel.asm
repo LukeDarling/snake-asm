@@ -4,12 +4,17 @@
 
 bits 16
 
-org 0x100
+org 0
 
 SECTION		.text
 
 main:
 	.main:
+
+		mov	ax, cs
+		mov	ds, ax
+
+
 		; set main task to active
 		mov     byte [task_status], 1               
 
