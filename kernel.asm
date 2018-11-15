@@ -20,10 +20,16 @@ main:
 		; create task b
 		lea     di, [task_b]
 		call    spawn_new_task
-
-
+		
+		; create task c
+		lea     di, [task_c]
+		call    spawn_new_task
+		
+		; create task d
+		lea     di, [task_d]
+		call    spawn_new_task
 		;										START PRINT DEMO
-		; 16-bit version of prolog
+		; 16-bit version of prologue
 		push    bp
 		mov     bp, sp
 		
@@ -33,196 +39,107 @@ main:
 		int     0x10
 
 		; three local stack variables, bp - 2 = row iter, bp - 4 = col iter, bp - 6 = color
-		sub     sp, 6
-	;	
-		mov     word [bp - 6], 50        ; start at color
+		sub     sp, 6	
+		
+;________________________START TOP BORDER________________________________________________	
+		mov     word [bp - 6], 50       ; start at color
+		mov     word [bp - 2], 2        ; start row iter at 0
+		mov     word [bp - 4], 0        ; start col iter at 0
+		
+_draw_t_border:	
+		cmp   word [bp - 4], 32         ;<number of blocks
+		jl   .continue_t_border
+		jmp   .done_t_border
+		
+	.continue_t_border:
+		call _draw_block
+		add     word [bp - 4], 1        ;block-sized spaces between blocks (1=adjacent)
+		jmp _draw_t_border
+		
+	.done_t_border:
+;________________________END TOP BORDER__________________________________________________
+
+;________________________START BOTTOM BORDER_____________________________________________	
+		mov     word [bp - 6], 50       ; start at color
+		mov     word [bp - 2], 19       ; start row iter at 0
+		mov     word [bp - 4], 0        ; start col iter at 0
+		
+_draw_b_border:	
+		cmp   word [bp - 4], 32         ;<number of blocks
+		jl   .continue_b_border
+		jmp   .done_b_border
+		
+	.continue_b_border:
+		call _draw_block
+		add     word [bp - 4], 1        ;block-sized spaces between blocks (1=adjacent)
+		jmp _draw_b_border
+		
+	.done_b_border:
+;________________________END BOTTOM BORDER_______________________________________________
+
+;________________________START LEFT BORDER_______________________________________________	
+		mov     word [bp - 6], 50       ; start at color
 		mov     word [bp - 2], 3        ; start row iter at 0
 		mov     word [bp - 4], 0        ; start col iter at 0
 		
-		; start at color
-		mov     word [bp - 6], 50
-		; start row iter at 0     
-		mov     word [bp - 2], 2
-		; start col iter at 0
-		mov     word [bp - 4], 0
+_draw_l_border:	
+		cmp   word [bp - 2], 19         ;<number of blocks
+		jl   .continue_l_border
+		jmp   .done_l_border
+		
+	.continue_l_border:
+		call _draw_block
+		add     word [bp - 2], 1        ;block-sized spaces between blocks (1=adjacent)
+		jmp _draw_l_border
+		
+	.done_l_border:
+;________________________END LEFT BORDER_________________________________________________
 
-;												FUNCTIONS
+;________________________START RIGHT BORDER______________________________________________	
+		mov     word [bp - 6], 50       ; start at color
+		mov     word [bp - 2], 3        ; start row iter at 0
+		mov     word [bp - 4], 31       ; start col iter at 0
+		
+_draw_r_border:	
+		cmp   word [bp - 2], 19         ;<number of blocks
+		jl   .continue_r_border
+		jmp   .done_r_border
+		
+	.continue_r_border:
+		call _draw_block
+		add     word [bp - 2], 1        ;block-sized spaces between blocks (1=adjacent)
+		jmp _draw_r_border
+		
+	.done_r_border:
+;________________________END RIGHT BORDER________________________________________________
 
-_draw_border:
-;	push    bp                      ; 16-bit version of prolog;
-;	mov     bp, sp
-;	sub     sp, 6                   ;bp-2 row, bp-4 col, bp-6 color.
-	
-	cmp   word [bp - 4], 32           ;<number of blocks
-	jl   .continue_border_top
-	jmp   .done_border_top
-	
-.continue_border_top:
-
-	
-	call _draw_block
-	
-	add     word [bp - 4], 1           ;block-sized spaces between blocks (1=adjacent)
-	jmp _draw_border
-.done_border_top:
-;	mov     sp, bp
-;	pop     bp
-;	ret
-;________________________END TOP BORDER___________________________________________
-
-;________________________BOTTOM BORDER________________________________________________________
-	mov     word [bp - 6], 50        ; start at color
-	mov     word [bp - 2], 19        ; start row iter at 0
-	mov     word [bp - 4], 0        ; start col iter at 0
-
-_draw_b_border:
-;	push    bp                      ; 16-bit version of prolog;
-;	mov     bp, sp
-;	sub     sp, 6                   ;bp-2 row, bp-4 col, bp-6 color.
-	
-	cmp   word [bp - 4], 32           ;<number of blocks
-	jl   .continue_b_border_top
-	jmp   .done_b_border_top
-	
-.continue_b_border_top:
-
-	
-	call _draw_block
-	
-	add     word [bp - 4], 1           ;block-sized spaces between blocks (1=adjacent)
-	jmp _draw_b_border
-.done_b_border_top:
-;	mov     sp, bp
-;	pop     bp
-;	ret
-;________________________END BOTTOM BORDER_____________________________________________
-;________________________LEFT BORDER________________________________________________________
-	mov     word [bp - 6], 50       ; start at color
-	mov     word [bp - 2], 3        ; start row iter at 0 (up/down)
-	mov     word [bp - 4], 0       ; start col iter at 0 (left/right)
-	;call _draw_block
-_draw_l_border:
-;	push    bp                      ; 16-bit version of prolog;
-;	mov     bp, sp
-;	sub     sp, 6                   ;bp-2 row, bp-4 col, bp-6 color.
-	
-	cmp   word [bp - 2], 19           ;<number of blocks
-	jl   .continue_l_border_top
-	jmp   .done_l_border_top
-	
-.continue_l_border_top:
-
-	call _draw_block
-	
-	add     word [bp - 2], 1           ;block-sized spaces between blocks (1=adjacent)
-	jmp _draw_l_border
-.done_l_border_top:
-;	mov     sp, bp
-;	pop     bp
-;	ret
-;________________________END LEFT BORDER_____________________________________________
-;________________________RIGHT BORDER________________________________________________________
-	mov     word [bp - 6], 50       ; start at color
-	mov     word [bp - 2], 3        ; start row iter at 0 (up/down)
-	mov     word [bp - 4], 31       ; start col iter at 0 (left/right)
-	;call _draw_block
-_draw_r_border:
-;	push    bp                      ; 16-bit version of prolog;
-;	mov     bp, sp
-;	sub     sp, 6                   ;bp-2 row, bp-4 col, bp-6 color.
-	
-	cmp   word [bp - 2], 19           ;<number of blocks
-	jl   .continue_r_border_top
-	jmp   .done_r_border_top
-	
-.continue_r_border_top:
-
-	call _draw_block
-	
-	add     word [bp - 2], 1           ;block-sized spaces between blocks (1=adjacent)
-	jmp _draw_r_border
-.done_r_border_top:
-;	mov     sp, bp
-;	pop     bp
-;	ret
-;________________________END RIGHT BORDER_____________________________________________
-
-
-mov     si, 8        
-mov     di, 7
+;________________________START SNAKE BLOCK_______________________________________________
 mov		dx, [colorBlue]
-
-;call _draw_block
-
 mov     si, 9        
 mov     di, 9
 
 call _draw_snake_block
+;__________________________END SNAKE BLOCK_______________________________________________
 
 
-jmp .loop_forever_main
-; di - row
-; si - column
-; dx - color
 
-;.color_row_loop:
-;	cmp     word [bp - 2], 13       ; with 15 x 15 blocks, we can fit roughly 13 rows
-;	jne     .continue_color_row
-	;____________ADDED STUFF________
-	;add     word [bp - 2], 2
-	;cmp     word [bp - 2], 6
-	;jge     .color_row_loop
-	;_______________END_____________
-;	jmp     .loop_forever_main
-;.continue_color_row:
-;	mov     word [bp - 4], 0        ; start col iter at 0
-;.color_column_loop:
-;	cmp     word [bp - 4], 21       ; with 15 x 15 blocks, we can have roughly 21 columns
-;	jne     .continue_color_column
-	;jmp     .color_column_done
-;.continue_color_column:
-	;mov     ax, [bp - 2]            ; copy row iter
-	;mov     bx, 15                  ; block height
-	;imul    bx
-	;mov     di, ax                  ; row offset
-	;mov     ax, [bp - 4]            ; copy col iter
-
-	;imul    bx
-	;mov     si, ax                  ; column offset
-
-	;mov     dx, [bp - 6]            ; current color
-	;call    _draw_block
-
-	;inc     word [bp - 6]           ; next color
-;	inc     word [bp - 4]           ; next column
-;	jmp     .color_column_loop
-;.color_column_done:
-;	inc     word [bp - 2]           ; next row
-;	jmp     .color_row_loop
-
-; di - row
-; si - column
-; dx - color
-
-;_________________________________________________________
-.loop_forever_main:                             ; have main print for eternity
+.loop_forever_main:                     ; have main print for eternity
 	lea     di, [task_main_str]
 	call    putstring
-	call    yield	; we are done printing, let another task know they can print
-	;jmp     .loop_forever_main
-	mov     ah, 0x0                 ; wait for user input
+	call    yield	                    ; yield to next waiting task
+	mov     ah, 0x0                     ; wait for user input
 	int     0x16
 	jmp     .loop_forever_main
 ;______________________________________________________________________________
 ; di should contain the address of the function to run for a task
 spawn_new_task:
-	lea     bx, [stack_pointers]                ; get the location of the stack pointers
-    add     bx, [current_task]                  ; get the location of the current stack pointer
-	mov     [bx], sp                            ; save current stack so we can switch back
-	mov     cx, [current_task]                  ; look for a new task 
-	add     cx, 2                               ; start searching at the next one though
+	lea     bx, [stack_pointers]        ; get the location of the stack pointers
+    add     bx, [current_task]          ; get the location of the current stack pointer
+	mov     [bx], sp                    ; save current stack so we can switch back
+	mov     cx, [current_task]          ; look for a new task 
+	add     cx, 2                       ; start searching at the next one though
 .sp_loop_for_available_stack:
-	cmp     cx, [current_task]                  ; we are done when we get back to the original
+	cmp     cx, [current_task]          ; we are done when we get back to the original
 	jne     .sp_check_if_available
 	jmp     .sp_no_available_stack
 .sp_check_if_available:
@@ -309,13 +226,9 @@ task_d:
 	call    yield
 	jmp     .loop_forever_4
 	; does not terminate or return
-;______________________________________________________________________________	
-	; does not terminate or return
-
-;_________________________________________________________
-; di - row
-; si - column
-; dx - color
+	
+;________________________DRAW BLOCK FUNCTION_____________________________________________
+;| di - row | si - column | dx - color |
 _draw_block:
 	mov     ax, [bp - 2]            ; copy row iter
 	mov     bx, 10                  ; block height
@@ -331,7 +244,6 @@ _draw_block:
 	push    bp                      ; 16-bit version of prolog
 	mov     bp, sp
 	mov     bx, 10                  ; block width
-	;mov     bx, 10                 ; block height
 	sub     sp, 6                   ; three local variables, bp - 2 = row iter, bp - 4 = col iter, bp - 6 = color
 	mov     [bp - 6], dx
 	mov     ax, 0xA000
@@ -341,7 +253,6 @@ _draw_block:
 	cmp     word [bp - 2], 10       ; < 10
 	jne     .continue_row
 	jmp     .done_row
-	
 	
 .continue_row:
 	mov     word [bp - 4], 0        ; col iter
@@ -371,7 +282,9 @@ _draw_block:
 	mov     sp, bp
 	pop     bp
 	ret
-;END PRINT DEMO_______________________________________________________________________________________________________________	
+;________________________END DRAW BLOCK FUCTION__________________________________________
+
+;________________________START SNAKE BLOCK FUCTION_______________________________________
 
 	; di = row
 	; si = column
@@ -413,13 +326,14 @@ _draw_block:
 	jne     .continue_row
 	jmp     .done_row
 	
-	
 .continue_row:
 	mov     word [bp - 4], 1        ; col iter
+	
 .column_loop:
 	cmp     word [bp - 4], 9       ; < 10
 	jne     .continue_column
 	jmp     .column_done
+	
 .continue_column:
 	mov     ax, di                  ; row
 	add     ax, [bp - 2]
@@ -435,15 +349,16 @@ _draw_block:
 
 	inc     word [bp - 4]           ; increment col
 	jmp     .column_loop
+	
 .column_done:
 	inc     word [bp - 2]           ; increment row
 	jmp     .row_loop
+	
 .done_row:
 	mov     sp, bp
 	pop     bp
 	ret
-
-
+;________________________END SNAKE BLOCK FUCTION_________________________________________
 ; takes a char to print in dx
 ; no return value
 putchar:
@@ -491,19 +406,19 @@ SECTION .data
 					dw stacks + (256 * 9)
 					dw stacks + (256 * 10)
 
-	colorBlack: dw 0
-	colorBlue: dw 0x1
-	colorGreen: dw 0x2
-	colorAqua: dw 0x3
-	colorRed: dw 0x4
-	colorPurple: dw 0x5
-	colorYellow: dw 0x6
-	colorLightGray: dw 0x7
-	colorDarkGray: dw 0x8
-	colorLightBlue: dw 0x9
-	colorLightGreen: dw 0xA
-	colorLightAqua: dw 0xB
-	colorLightRed: dw 0xC
+	colorBlack:       dw 0
+	colorBlue:        dw 0x1
+	colorGreen:       dw 0x2
+	colorAqua:        dw 0x3
+	colorRed:         dw 0x4
+	colorPurple:      dw 0x5
+	colorYellow:      dw 0x6
+	colorLightGray:   dw 0x7
+	colorDarkGray:    dw 0x8
+	colorLightBlue:   dw 0x9
+	colorLightGreen:  dw 0xA
+	colorLightAqua:   dw 0xB
+	colorLightRed:    dw 0xC
 	colorLightPurple: dw 0xD
 	colorLightYellow: dw 0xE
-	colorWhite: dw 0xF
+	colorWhite:       dw 0xF
