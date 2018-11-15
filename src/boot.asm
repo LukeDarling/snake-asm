@@ -38,7 +38,7 @@ main:
 	mov     ax, 0x800
     mov     es, ax
     mov     ah, 2
-    mov     al, 1
+    mov     al, 20
 
     ; Which sector
     mov     ch, 0
