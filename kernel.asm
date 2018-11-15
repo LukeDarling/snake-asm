@@ -212,16 +212,7 @@ jmp .loop_forever_main
 	;jmp     .loop_forever_main
 	mov     ah, 0x0                 ; wait for user input
 	int     0x16
-	jmp     .exit
-	.exit:
-
-
-	mov     sp, bp
-	pop     bp
-
-	mov     ah, 0x4c
-	mov     al, 0
-	int     0x21
+	jmp     .loop_forever_main
 ;______________________________________________________________________________
 ; di should contain the address of the function to run for a task
 spawn_new_task:
@@ -292,7 +283,7 @@ task_a:
 	lea     di, [task_a_str]
 	call    putstring
 	call    yield
-	;jmp     .loop_forever_1
+	jmp     .loop_forever_1
 	; does not terminate or return
 
 task_b:
@@ -300,7 +291,7 @@ task_b:
 	lea     di, [task_b_str]
 	call    putstring
 	call    yield
-	;jmp     .loop_forever_2
+	jmp     .loop_forever_2
 	; does not terminate or return
 	
 task_c:
@@ -308,7 +299,7 @@ task_c:
 	lea     di, [task_c_str]
 	call    putstring
 	call    yield
-	;jmp     .loop_forever_3
+	jmp     .loop_forever_3
 	; does not terminate or return
 	
 task_d:
@@ -316,7 +307,7 @@ task_d:
 	lea     di, [task_d_str]
 	call    putstring
 	call    yield
-	;jmp     .loop_forever_4
+	jmp     .loop_forever_4
 	; does not terminate or return
 ;______________________________________________________________________________	
 	; does not terminate or return
