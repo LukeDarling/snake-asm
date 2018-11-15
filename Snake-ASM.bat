@@ -1,5 +1,5 @@
 @echo off
-if not exist "kernel.com" (
+if not exist "bin\bootdisk.img" (
     call compile.bat
 )
 call setup.bat

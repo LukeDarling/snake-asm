@@ -1,10 +1,10 @@
 @echo off
-cd > bin/path.conf
-SET /p snake_asm_path= < bin/path.conf
+cd > bin\path.conf
+SET /p snake_asm_path= < bin\path.conf
 echo [autoexec]^
 
 mount W "%snake_asm_path%"^
 
 W:^
 
-kernel.com > bin/dosbox.conf
+boot "bin\bootdisk.img" > bin\dosbox.conf

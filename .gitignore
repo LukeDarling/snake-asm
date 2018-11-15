@@ -2,3 +2,7 @@ compile.log
 kernel.com
 bin/path.conf
 bin/dosbox.conf
+bin/kernel.bin
+bin/boot.bin
+bin/bootdisk.img
+log/compile.log
