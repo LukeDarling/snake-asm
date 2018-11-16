@@ -9,4 +9,4 @@ Alpha Stage: Time Spent
 Beta Stage: Time Spent
 - (Amy Surrett: 11 hours 45 minutes)
 - (Jonathan DeGirolano: 6 hours 45 minutes)
-- (Luke Darling: 5 hours 15 minutes)
+- (Luke Darling: 7 hours 0 minutes)
