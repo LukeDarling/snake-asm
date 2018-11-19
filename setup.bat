@@ -7,4 +7,6 @@ mount W "%snake_asm_path%"^
 
 W:^
 
-kernel.com > bin/dosbox.conf
+mount T "%snake_asm_path%\bin"^
+
+set PATH=%%PATH%%;T:\TC;T:\TASM > bin/dosbox.conf
