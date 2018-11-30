@@ -74,7 +74,7 @@ _draw_t_border:
 	jmp   .done_t_border
 		
 	.continue_t_border:
-	call _draw_block
+	call drawBlock
 	add     word [bp - 4], 1        ;block-sized spaces between blocks (1=adjacent)
 	jmp _draw_t_border
 		
@@ -92,7 +92,7 @@ _draw_b_border:
 		jmp   .done_b_border
 		
 	.continue_b_border:
-		call _draw_block
+		call drawBlock
 		add     word [bp - 4], 1        ;block-sized spaces between blocks (1=adjacent)
 		jmp _draw_b_border
 		
@@ -110,7 +110,7 @@ _draw_l_border:
 		jmp   .done_l_border
 		
 	.continue_l_border:
-		call _draw_block
+		call drawBlock
 		add     word [bp - 2], 1        ;block-sized spaces between blocks (1=adjacent)
 		jmp _draw_l_border
 		
@@ -128,7 +128,7 @@ _draw_r_border:
 		jmp   .done_r_border
 		
 	.continue_r_border:
-		call _draw_block
+		call 	drawBlock
 		add     word [bp - 2], 1        ;block-sized spaces between blocks (1=adjacent)
 		jmp _draw_r_border
 		
@@ -140,7 +140,7 @@ mov		dx, [colorBlue]
 mov     si, 9        
 mov     di, 9
 
-call _draw_snake_block
+call drawBlock
 ;__________________________END SNAKE BLOCK_______________________________________________
 
 
@@ -251,7 +251,7 @@ task_d:
 	
 ;________________________DRAW BLOCK FUNCTION_____________________________________________
 ;| di - row | si - column | dx - color |
-_draw_block:
+drawBlock:
 	push 	ax
 	mov     ax, [bp - 2]            ; copy row iter
 	mov     bx, 10                  ; block height
@@ -312,7 +312,7 @@ _draw_block:
 
 	; di = row
 	; si = column
-	_draw_snake_block:
+	drawBlock:
 
 	mov     word [bp - 4], si
 	mov     word [bp - 2], di
@@ -320,7 +320,7 @@ _draw_block:
 	; Draw initial black square
 	mov		ax, [colorBlack]
 	mov     word [bp - 6], ax
-	call _draw_block
+	call 	drawBlock
 
 	; Make the segments green
 	mov 	ax, [colorLightGreen]
@@ -434,7 +434,7 @@ tick:
 	cmp 	si, 0xF
 	je		.endTick
 	mov     di, 5
-	call	_draw_snake_block
+	call	drawBlock
 	mov 	dx, [testCounter]
 	inc 	dx
 	mov 	[testCounter], dx
