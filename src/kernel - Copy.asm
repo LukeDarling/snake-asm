@@ -10,26 +10,25 @@ SECTION	.text
 
 main:
 
-
+	mov	ax, 0x0000
+	mov	es, ax
+	; Hook into interrupt 8 to create a timer
+	cli
+	mov 	bx, [es:4 * 8]
+	mov 	[int8Return], bx
+	mov 	bx, timerHandler
+	mov 	[es:4 * 8], bx
+	mov 	bx, cs
+	mov 	[es:4 * 8 + 2], bx
+	sti
 
 	.main:
 
 	mov	ax, cs
 	mov	ds, ax
 
-	mov	ax, 0x0000
-	mov	es, ax
-	; ; Hook into interrupt 8 to create a timer
-	cli
-	mov 	bx, [es:IVT8_OFFSET_SLOT]
-	mov 	[ivt8_offset], bx
-	mov 	bx, [es:IVT8_SEGMENT_SLOT]
-	mov 	[ivt8_segment], bx
-	mov 	bx, timerHandler
-	mov 	[es:IVT8_OFFSET_SLOT], bx
-	mov 	bx, cs
-	mov 	[es:IVT8_SEGMENT_SLOT], bx
-	sti
+
+
 
 	; set main task to active
 	mov     byte [task_status], 1               
@@ -63,8 +62,7 @@ main:
 	sub     sp, 6	
 	
 ;________________________START TOP BORDER________________________________________________	
-	mov 	ax, [colorLightGray]
-	mov     word [bp - 6], ax       ; start at color
+	mov     word [bp - 6], 50       ; start at color
 	mov     word [bp - 2], 2        ; start row iter at 0
 	mov     word [bp - 4], 0        ; start col iter at 0
 		
@@ -82,7 +80,7 @@ _draw_t_border:
 ;________________________END TOP BORDER__________________________________________________
 
 ;________________________START BOTTOM BORDER_____________________________________________	
-	mov     word [bp - 6], ax       ; start at color
+	mov     word [bp - 6], 50       ; start at color
 	mov     word [bp - 2], 19       ; start row iter at 0
 	mov     word [bp - 4], 0        ; start col iter at 0
 		
@@ -100,7 +98,7 @@ _draw_b_border:
 ;________________________END BOTTOM BORDER_______________________________________________
 
 ;________________________START LEFT BORDER_______________________________________________	
-		mov     word [bp - 6], ax       ; start at color
+		mov     word [bp - 6], 50       ; start at color
 		mov     word [bp - 2], 3        ; start row iter at 0
 		mov     word [bp - 4], 0        ; start col iter at 0
 		
@@ -118,7 +116,7 @@ _draw_l_border:
 ;________________________END LEFT BORDER_________________________________________________
 
 ;________________________START RIGHT BORDER______________________________________________	
-		mov     word [bp - 6], ax       ; start at color
+		mov     word [bp - 6], 50       ; start at color
 		mov     word [bp - 2], 3        ; start row iter at 0
 		mov     word [bp - 4], 31       ; start col iter at 0
 		
@@ -252,7 +250,6 @@ task_d:
 ;________________________DRAW BLOCK FUNCTION_____________________________________________
 ;| di - row | si - column | dx - color |
 _draw_block:
-	push 	ax
 	mov     ax, [bp - 2]            ; copy row iter
 	mov     bx, 10                  ; block height
 	imul    bx
@@ -304,7 +301,6 @@ _draw_block:
 .done_row:
 	mov     sp, bp
 	pop     bp
-	pop 	ax
 	ret
 ;________________________END DRAW BLOCK FUCTION__________________________________________
 
@@ -410,52 +406,51 @@ putstring:
 timerHandler:
 	push 	bx
 	mov 	bx, [tickCounter]
-	; Tick every ~0.22 seconds (4/18.2)
-	cmp 	bx, 0x4
+	; Tick every ~0.49 seconds (9/18.2)
+	cmp 	bx, 0x9
 	je 		.resetTickCounter
 	inc 	bx
 	mov 	[tickCounter], bx
 	pop 	bx
-	jmp	far [cs:ivt8_offset]
+	jmp	far [cs:int8Return]
 
 	.resetTickCounter:
 	xor 	bx, bx
 	mov 	[tickCounter], bx
 	pop 	bx
 	call 	tick
-	jmp	far [cs:ivt8_offset]
+	jmp	far [cs:int8Return]
 
 
 
 ; Everything in this function gets executed each clock tick
 tick:
-	pusha
-	mov     si, [testCounter]
-	cmp 	si, 0xF
-	je		.endTick
-	mov     di, 5
+	mov		dx, [colorBlue]
+	mov     si, 9        
+	mov     di, [testCounter]
+
 	call	_draw_snake_block
+	push	dx
 	mov 	dx, [testCounter]
 	inc 	dx
 	mov 	[testCounter], dx
-	.endTick:
-	popa
+	pop 	dx
 	ret
 
 
 
 SECTION .data
-task_main_str 		db "I am task MAIN", 13, 10, 0
-task_a_str 			db "I am the music task", 13, 10, 0
-task_b_str  		db "I am the drawing task", 13, 10, 0
-task_c_str 			db "I am the input handling task", 13, 10, 0
-task_d_str 			db "I am the random food task", 13, 10, 0
+task_main_str: db "I am task MAIN", 13, 10, 0
+task_a_str: db "I am the music task", 13, 10, 0
+task_b_str: db "I am the drawing task", 13, 10, 0
+task_c_str: db "I am the input handling task", 13, 10, 0
+task_d_str: db "I am the random food task", 13, 10, 0
 
 
-current_task 		dw 0 ; must always be a multiple of 2
-stacks 				times (256 * 31) db 0 ; 31 fake stacks of size 256 bytes
-task_status 		times 32 dw 0 ; 0 means inactive, 1 means active
-stack_pointers 		dw 0 ; the first pointer needs to be to the real stack !
+current_task: 		dw 0 ; must always be a multiple of 2
+stacks: 			times (256 * 31) db 0 ; 31 fake stacks of size 256 bytes
+task_status: 		times 32 dw 0 ; 0 means inactive, 1 means active
+stack_pointers: 	dw 0 ; the first pointer needs to be to the real stack !
 					dw stacks + (256 * 1)
 					dw stacks + (256 * 2)
 					dw stacks + (256 * 3)
@@ -467,30 +462,28 @@ stack_pointers 		dw 0 ; the first pointer needs to be to the real stack !
 					dw stacks + (256 * 9)
 					dw stacks + (256 * 10)
 
-tickCounter			dw	0
-ivt8_offset			dw	0
-ivt8_segment		dw	0
+tickCounter:		dw	0
+int8Return:    		dw	0
 
-colorBlack     		dw 0x0
-colorBlue      		dw 0x1
-colorGreen     		dw 0x2
-colorAqua        	dw 0x3
-colorRed         	dw 0x4
-colorPurple      	dw 0x5
-colorYellow      	dw 0x6
-colorLightGray   	dw 0x7
-colorDarkGray    	dw 0x8
-colorLightBlue   	dw 0x9
-colorLightGreen  	dw 0xA
-colorLightAqua   	dw 0xB
-colorLightRed    	dw 0xC
-colorLightPurple 	dw 0xD
-colorLightYellow	dw 0xE
-colorWhite       	dw 0xF
-
-IVT8_OFFSET_SLOT	equ	4 * 8
-IVT8_SEGMENT_SLOT	equ	IVT8_OFFSET_SLOT + 2
+colorBlack:     	dw 0x0
+colorBlue:      	dw 0x1
+colorGreen:     	dw 0x2
+colorAqua:        	dw 0x3
+colorRed:         	dw 0x4
+colorPurple:      	dw 0x5
+colorYellow:      	dw 0x6
+colorLightGray:   	dw 0x7
+colorDarkGray:    	dw 0x8
+colorLightBlue:   	dw 0x9
+colorLightGreen:  	dw 0xA
+colorLightAqua:   	dw 0xB
+colorLightRed:    	dw 0xC
+colorLightPurple: 	dw 0xD
+colorLightYellow:	dw 0xE
+colorWhite:       	dw 0xF
 
 
 
-testCounter:       	dw 2
+
+
+testCounter:       	dw 0
