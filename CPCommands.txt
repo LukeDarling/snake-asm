@@ -1,3 +1,0 @@
-
-nasm -g -f bin -obin\kernel.bin src\kernel.asm
-nasm -g -f bin -obin\boot.bin src\boot.asm
