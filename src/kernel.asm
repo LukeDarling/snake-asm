@@ -235,8 +235,17 @@ task_b:
 	
 task_c:
 .loop_forever_3:
-	lea     di, [task_c_str]
-	call    putstring
+
+;you guys might want to check this...
+
+	mov 	ah, 0x01
+	int 	0x16
+
+	cmp 	ax, 0
+	je 		.skip
+	mov     [direction], al
+
+.skip:
 	call    yield
 	jmp     .loop_forever_3
 	; does not terminate or return
@@ -448,7 +457,7 @@ SECTION .data
 task_main_str 		db "I am task MAIN", 13, 10, 0
 task_a_str 			db "I am the music task", 13, 10, 0
 task_b_str  		db "I am the drawing task", 13, 10, 0
-task_c_str 			db "I am the input handling task", 13, 10, 0
+direction  			dw 	0
 task_d_str 			db "I am the random food task", 13, 10, 0
 
 
