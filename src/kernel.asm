@@ -141,6 +141,8 @@ mov     si, 9
 mov     di, 9
 
 call _draw_snake_block
+mov     si, 9        
+mov     di, 9
 mov 	[left_right], di
 mov 	[up_down], si
 ;__________________________END SNAKE BLOCK_______________________________________________
