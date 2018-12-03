@@ -141,13 +141,14 @@ mov     si, 9
 mov     di, 9
 
 call _draw_snake_block
+mov 	[left_right], di
+mov 	[up_down], si
 ;__________________________END SNAKE BLOCK_______________________________________________
 
 
 
 .loop_forever_main:                     ; have main print for eternity
-	lea     di, [task_main_str]
-	call    putstring
+
 	call    yield	                    ; yield to next waiting task
 	mov     ah, 0x0                     ; wait for user input
 	int     0x16
@@ -219,26 +220,19 @@ yield:
 
 task_a:
 .loop_forever_1:
-	lea     di, [task_a_str]
-	call    putstring
+
 	call    yield
 	jmp     .loop_forever_1
 	; does not terminate or return
 
-task_b:
-.loop_forever_2:
-	lea     di, [task_b_str]
-	call    putstring
-	call    yield
-	jmp     .loop_forever_2
-	; does not terminate or return
+
 	
-task_c:
+task_b:
 .loop_forever_3:
 
 ;you guys might want to check this...
 
-	mov 	ah, 0x01
+	mov 	ax, 0x0
 	int 	0x16
 
 	cmp 	ax, 0
@@ -249,11 +243,53 @@ task_c:
 	call    yield
 	jmp     .loop_forever_3
 	; does not terminate or return
+
+	task_c:
+.loop_forever_2:
+	
+    cmp     word [direction], 119
+    je      .up
+    cmp     word [direction], 97
+    je      .left
+    cmp     word [direction], 115
+    je      .down 
+    cmp     word [direction], 100
+    je      .right 
+
+	
+.up:
+    sub     word [up_down], 1
+	mov 	di, word [up_down]
+	mov 	si, word [left_right]
+    call    _draw_snake_block
+    jmp     .again
+.left:
+    sub     word [left_right], 1
+	mov 	si, word [left_right]
+	mov 	di, word [up_down]
+    call    _draw_snake_block
+    jmp     .again
+.down:
+    add     word [up_down], 1
+	mov 	di, word [up_down]
+	mov 	si, word [left_right]
+    call    _draw_snake_block
+    jmp     .again
+.right:
+    add     word [left_right], 1
+	mov 	si, word [left_right]
+	mov 	di, word [up_down]
+    call    _draw_snake_block
+    jmp     .again
+
+.again:
+	call    yield
+	jmp     .loop_forever_2
+	; does not terminate or return
 	
 task_d:
 .loop_forever_4:
-	lea     di, [task_d_str]
-	call    putstring
+
 	call    yield
 	jmp     .loop_forever_4
 	; does not terminate or return
@@ -456,7 +492,8 @@ tick:
 SECTION .data
 task_main_str 		db "I am task MAIN", 13, 10, 0
 task_a_str 			db "I am the music task", 13, 10, 0
-task_b_str  		db "I am the drawing task", 13, 10, 0
+left_right			dw 0
+up_down 			dw 0
 direction  			dw 	0
 task_d_str 			db "I am the random food task", 13, 10, 0
 
