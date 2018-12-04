@@ -148,6 +148,9 @@ mov     si, 9
 mov     di, 9
 mov 	[left_right], di
 mov 	[up_down], si
+mov 	al, [left_right]
+mov 	ah, [up_down]
+call 	_push
 ;__________________________END SNAKE BLOCK_______________________________________________
 
 
@@ -500,24 +503,40 @@ cmp     word [direction], 119
 	mov 	di, word [up_down]
 	mov 	si, word [left_right]
     call    _draw_snake_block
+	mov 	al, [left_right]
+	mov 	ah, [up_down]
+	call	_push
+
     jmp     .again
 .left:
     sub     word [left_right], 1
 	mov 	si, word [left_right]
 	mov 	di, word [up_down]
     call    _draw_snake_block
+	mov 	al, [left_right]
+	mov 	ah, [up_down]
+	call	_push
+
     jmp     .again
 .down:
     add     word [up_down], 1
 	mov 	di, word [up_down]
 	mov 	si, word [left_right]
     call    _draw_snake_block
+	mov 	al, [left_right]
+	mov 	ah, [up_down]
+	call	_push
+
     jmp     .again
 .right:
     add     word [left_right], 1
 	mov 	si, word [left_right]
 	mov 	di, word [up_down]
     call    _draw_snake_block
+	mov 	al, [left_right]
+	mov 	ah, [up_down]
+	call	_push
+
     jmp     .again
 
 .again:
@@ -579,6 +598,24 @@ AND     AL,11111100B     ; AND AL to this value, forcing first two bits low.
 OUT     61H,AL           ; Copy it to port 61H of the PPI Chip
                          ; to turn OFF the speaker.
 	ret
+
+	_push: 
+    mov     dx, ax
+    mov     cx, [stack_it]
+    lea     bx, [new_stack]
+    add     bx, cx
+    mov     [bx], dx
+    add     word [stack_it], 2
+    ret
+
+_pop:   
+	mov 	dx, [length_of_snake]
+	mov     cx, [stack_it]
+    sub     cx, dx 
+    lea     bx, [new_stack]
+    add     bx, cx 
+    mov     ax, [bx]
+    ret 
 	
 SECTION .data
 start_str           db "Snake game by A.S., L.D. J. DG", 13, 10, 0
@@ -592,6 +629,9 @@ previous_direction  dw 0
 task_d_str 			db "I am the random food task", 13, 10, 0
 score               dw 0
 digits		        db	"0123456789abcdef"
+length_of_snake   	db 4
+black_it_right_left db 0
+black_it_up_down    db 0
 
 current_task 		dw 0 ; must always be a multiple of 2
 stacks 				times (256 * 31) db 0 ; 31 fake stacks of size 256 bytes
@@ -635,3 +675,8 @@ IVT8_SEGMENT_SLOT	equ	IVT8_OFFSET_SLOT + 2
 
 
 testCounter:       	dw 2
+stack_it: 			dw 0
+
+section .bss
+
+    new_stack: resw 100
