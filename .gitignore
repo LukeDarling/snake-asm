@@ -6,3 +6,5 @@ bin/kernel.bin
 bin/boot.bin
 bin/bootdisk.img
 log/compile.log
+temp/music.bin
+temp/music.com
