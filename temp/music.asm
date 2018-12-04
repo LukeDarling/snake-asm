@@ -35,7 +35,7 @@ OR      AL, 00000011B    ; OR AL to this value, forcing first two bits high.
 OUT     61H, AL          ; Copy it to port 61H of the PPI Chip
                          ; to turn ON the speaker.
 
-MOV     CX, 1000          ; Repeat loop 100 times
+MOV     CX, 100          ; Repeat loop 100 times
 DELAY_LOOP:              ; Here is where we loop back too.
 LOOP    DELAY_LOOP       ; Jump repeatedly to DELAY_LOOP until CX = 0
 
