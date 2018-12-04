@@ -222,7 +222,8 @@ yield:
 
 task_a: ;music task
 .loop_forever_1:
-
+	
+	
 	call    yield
 	jmp     .loop_forever_1
 	; does not terminate or return
@@ -280,7 +281,6 @@ task_b: ;drawing task
 task_c: ;input task
 .loop_forever_2:
 	
-
 	call    yield
 	jmp     .loop_forever_2
 	; does not terminate or return
