@@ -220,7 +220,7 @@ yield:
 	popa
 	ret
 
-task_a:
+task_a: ;music task
 .loop_forever_1:
 
 	call    yield
@@ -229,7 +229,7 @@ task_a:
 
 
 	
-task_b:
+task_b: ;drawing task
 .loop_forever_3:
 
 ;you guys might want to check this...
@@ -239,57 +239,53 @@ task_b:
 
 	cmp 	ax, 0
 	je 		.skip
+	mov     bl, [direction]  ;saves previous direction
+	mov     [previous_direction], bl
 	mov     [direction], al
 
+	cmp     word [direction], 119
+    je      .checkup
+    cmp     word [direction], 97
+    je      .checkleft
+    cmp     word [direction], 115
+    je      .checkdown 
+    cmp     word [direction], 100
+    je      .checkright 
+	
+.checkup:
+	cmp word [previous_direction], 115
+	je .badmove
+	jmp .skip
+.checkleft:
+	cmp word [previous_direction], 100
+	je .badmove
+	jmp .skip
+.checkdown:
+	cmp word [previous_direction], 119
+	je .badmove
+	jmp .skip
+.checkright:
+	cmp word [previous_direction], 97
+	je .badmove
+	jmp .skip
+
+.badmove:
+	mov al, [previous_direction]
+	mov [direction], al
 .skip:
 	call    yield
 	jmp     .loop_forever_3
 	; does not terminate or return
 
-	task_c:
+task_c: ;input task
 .loop_forever_2:
 	
-    cmp     word [direction], 119
-    je      .up
-    cmp     word [direction], 97
-    je      .left
-    cmp     word [direction], 115
-    je      .down 
-    cmp     word [direction], 100
-    je      .right 
 
-	
-.up:
-    sub     word [up_down], 1
-	mov 	di, word [up_down]
-	mov 	si, word [left_right]
-    call    _draw_snake_block
-    jmp     .again
-.left:
-    sub     word [left_right], 1
-	mov 	si, word [left_right]
-	mov 	di, word [up_down]
-    call    _draw_snake_block
-    jmp     .again
-.down:
-    add     word [up_down], 1
-	mov 	di, word [up_down]
-	mov 	si, word [left_right]
-    call    _draw_snake_block
-    jmp     .again
-.right:
-    add     word [left_right], 1
-	mov 	si, word [left_right]
-	mov 	di, word [up_down]
-    call    _draw_snake_block
-    jmp     .again
-
-.again:
 	call    yield
 	jmp     .loop_forever_2
 	; does not terminate or return
 	
-task_d:
+task_d: ; random food placement task
 .loop_forever_4:
 
 	call    yield
@@ -477,28 +473,74 @@ timerHandler:
 ; Everything in this function gets executed each clock tick
 tick:
 	pusha
+	
+	call movesnake
+	
+	popa
+	ret
+
+movesnake:
+cmp     word [direction], 119
+    je      .up
+    cmp     word [direction], 97
+    je      .left
+    cmp     word [direction], 115
+    je      .down 
+    cmp     word [direction], 100
+    je      .right 
+
+	
+.up:
+    sub     word [up_down], 1
+	mov 	di, word [up_down]
+	mov 	si, word [left_right]
+    call    _draw_snake_block
+    jmp     .again
+.left:
+    sub     word [left_right], 1
+	mov 	si, word [left_right]
+	mov 	di, word [up_down]
+    call    _draw_snake_block
+    jmp     .again
+.down:
+    add     word [up_down], 1
+	mov 	di, word [up_down]
+	mov 	si, word [left_right]
+    call    _draw_snake_block
+    jmp     .again
+.right:
+    add     word [left_right], 1
+	mov 	si, word [left_right]
+	mov 	di, word [up_down]
+    call    _draw_snake_block
+    jmp     .again
+
+.again:
+	ret
+	
+
+timerdemo:
 	mov     si, [testCounter]
 	cmp 	si, 0xF
-	je		.endTick
+	je		.endTdemo
 	mov     di, 5
 	call	_draw_snake_block
 	mov 	dx, [testCounter]
 	inc 	dx
 	mov 	[testCounter], dx
-	.endTick:
-	popa
+	.endTdemo:
 	ret
-
-
 
 SECTION .data
 task_main_str 		db "I am task MAIN", 13, 10, 0
 task_a_str 			db "I am the music task", 13, 10, 0
 left_right			dw 0
 up_down 			dw 0
-direction  			dw 	0
+direction  			dw 0
+previous_direction  dw 0
 task_d_str 			db "I am the random food task", 13, 10, 0
-
+score               dw 0
+digits		        db	"0123456789abcdef"
 
 current_task 		dw 0 ; must always be a multiple of 2
 stacks 				times (256 * 31) db 0 ; 31 fake stacks of size 256 bytes
