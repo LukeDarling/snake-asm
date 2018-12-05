@@ -566,7 +566,7 @@ cmp     word [direction], 119
     jmp     .again
 
 .not_alive:
-	mov 	word [dead], 0
+	mov 	word [dead], 1
 
 .again:
 	ret
