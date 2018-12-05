@@ -64,79 +64,8 @@ int     0x16
 
 	; three local stack variables, bp - 2 = row iter, bp - 4 = col iter, bp - 6 = color
 	sub     sp, 6	
-	
-;________________________START TOP BORDER________________________________________________	
-	mov 	ax, [colorLightGray]
-	mov     word [bp - 6], ax       ; start at color
-	mov     word [bp - 2], 2        ; start row iter at 0
-	mov     word [bp - 4], 0        ; start col iter at 0
-		
-_draw_t_border:	
-	cmp   word [bp - 4], 32         ;<number of blocks
-	jl   .continue_t_border
-	jmp   .done_t_border
-		
-	.continue_t_border:
-	call _draw_block
-	add     word [bp - 4], 1        ;block-sized spaces between blocks (1=adjacent)
-	jmp _draw_t_border
-		
-	.done_t_border:
-;________________________END TOP BORDER__________________________________________________
 
-;________________________START BOTTOM BORDER_____________________________________________	
-	mov     word [bp - 6], ax       ; start at color
-	mov     word [bp - 2], 19       ; start row iter at 0
-	mov     word [bp - 4], 0        ; start col iter at 0
-		
-_draw_b_border:	
-		cmp   word [bp - 4], 32         ;<number of blocks
-		jl   .continue_b_border
-		jmp   .done_b_border
-		
-	.continue_b_border:
-		call _draw_block
-		add     word [bp - 4], 1        ;block-sized spaces between blocks (1=adjacent)
-		jmp _draw_b_border
-		
-	.done_b_border:
-;________________________END BOTTOM BORDER_______________________________________________
 
-;________________________START LEFT BORDER_______________________________________________	
-		mov     word [bp - 6], ax       ; start at color
-		mov     word [bp - 2], 3        ; start row iter at 0
-		mov     word [bp - 4], 0        ; start col iter at 0
-		
-_draw_l_border:	
-		cmp   word [bp - 2], 19         ;<number of blocks
-		jl   .continue_l_border
-		jmp   .done_l_border
-		
-	.continue_l_border:
-		call _draw_block
-		add     word [bp - 2], 1        ;block-sized spaces between blocks (1=adjacent)
-		jmp _draw_l_border
-		
-	.done_l_border:
-;________________________END LEFT BORDER_________________________________________________
-
-;________________________START RIGHT BORDER______________________________________________	
-		mov     word [bp - 6], ax       ; start at color
-		mov     word [bp - 2], 3        ; start row iter at 0
-		mov     word [bp - 4], 31       ; start col iter at 0
-		
-_draw_r_border:	
-		cmp   word [bp - 2], 19         ;<number of blocks
-		jl   .continue_r_border
-		jmp   .done_r_border
-		
-	.continue_r_border:
-		call _draw_block
-		add     word [bp - 2], 1        ;block-sized spaces between blocks (1=adjacent)
-		jmp _draw_r_border
-		
-	.done_r_border:
-;________________________END RIGHT BORDER________________________________________________
 
 ;________________________START SNAKE BLOCK_______________________________________________
 mov		dx, [colorBlue]
@@ -171,7 +100,8 @@ call 	_push
 	mov 	ax, 0x0
 	int 	0x16
 	cmp 	bl, 20
-	je 	.contMainLoop
+	je 		.contMainLoop
+	call 	drawBorder
 	mov 	byte [running], 1
 	.endMainLoop:
 	call    yield
@@ -714,7 +644,8 @@ task_b:
     cmp     word [direction], 115
     je      .checkdown 
     cmp     word [direction], 100
-    je      .checkright 
+    je      .checkright
+	jmp 	.skip
 	
 .checkup:
 	cmp word [previous_direction], 115
@@ -946,6 +877,82 @@ timerHandler:
 	jmp	far [cs:ivt8_offset]
 
 
+drawBorder:
+	mov 	ax, [colorBlack]
+	call 	fillScreen
+;________________________START TOP BORDER________________________________________________	
+	mov 	ax, [colorLightGray]
+	mov     word [bp - 6], ax       ; start at color
+	mov     word [bp - 2], 2        ; start row iter at 0
+	mov     word [bp - 4], 0        ; start col iter at 0
+		
+_draw_t_border:	
+	cmp   word [bp - 4], 32         ;<number of blocks
+	jl   .continue_t_border
+	jmp   .done_t_border
+		
+	.continue_t_border:
+	call _draw_block
+	add     word [bp - 4], 1        ;block-sized spaces between blocks (1=adjacent)
+	jmp _draw_t_border
+		
+	.done_t_border:
+;________________________END TOP BORDER__________________________________________________
+
+;________________________START BOTTOM BORDER_____________________________________________	
+	mov     word [bp - 6], ax       ; start at color
+	mov     word [bp - 2], 19       ; start row iter at 0
+	mov     word [bp - 4], 0        ; start col iter at 0
+		
+_draw_b_border:	
+		cmp   word [bp - 4], 32         ;<number of blocks
+		jl   .continue_b_border
+		jmp   .done_b_border
+		
+	.continue_b_border:
+		call _draw_block
+		add     word [bp - 4], 1        ;block-sized spaces between blocks (1=adjacent)
+		jmp _draw_b_border
+		
+	.done_b_border:
+;________________________END BOTTOM BORDER_______________________________________________
+
+;________________________START LEFT BORDER_______________________________________________	
+		mov     word [bp - 6], ax       ; start at color
+		mov     word [bp - 2], 3        ; start row iter at 0
+		mov     word [bp - 4], 0        ; start col iter at 0
+		
+_draw_l_border:	
+		cmp   word [bp - 2], 19         ;<number of blocks
+		jl   .continue_l_border
+		jmp   .done_l_border
+		
+	.continue_l_border:
+		call _draw_block
+		add     word [bp - 2], 1        ;block-sized spaces between blocks (1=adjacent)
+		jmp _draw_l_border
+		
+	.done_l_border:
+;________________________END LEFT BORDER_________________________________________________
+
+;________________________START RIGHT BORDER______________________________________________	
+		mov     word [bp - 6], ax       ; start at color
+		mov     word [bp - 2], 3        ; start row iter at 0
+		mov     word [bp - 4], 31       ; start col iter at 0
+		
+_draw_r_border:	
+		cmp   word [bp - 2], 19         ;<number of blocks
+		jl   .continue_r_border
+		jmp   .done_r_border
+		
+	.continue_r_border:
+		call _draw_block
+		add     word [bp - 2], 1        ;block-sized spaces between blocks (1=adjacent)
+		jmp _draw_r_border
+		
+	.done_r_border:
+;________________________END RIGHT BORDER________________________________________________
+	ret
 
 ; Everything in this function gets executed each clock tick
 tick:
