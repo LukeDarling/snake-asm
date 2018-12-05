@@ -94,8 +94,1723 @@ call 	_push
 	jne 	.endMainLoop
 	mov 	byte [dead], 0
 	mov 	byte [running], 0
-	mov 	ax, [colorAqua]
+	mov 	ax, [colorBlack]
 	call 	fillScreen
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 1
+    mov     word [bp - 4], 1
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 1
+    mov     word [bp - 4], 2
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 1
+    mov     word [bp - 4], 3
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 1
+    mov     word [bp - 4], 4
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 1
+    mov     word [bp - 4], 5
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 1
+    mov     word [bp - 4], 6
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 1
+    mov     word [bp - 4], 7
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 1
+    mov     word [bp - 4], 8
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 1
+    mov     word [bp - 4], 9
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 1
+    mov     word [bp - 4], 10
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 1
+    mov     word [bp - 4], 11
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 1
+    mov     word [bp - 4], 12
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 1
+    mov     word [bp - 4], 13
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 1
+    mov     word [bp - 4], 14
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 1
+    mov     word [bp - 4], 15
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 1
+    mov     word [bp - 4], 16
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 1
+    mov     word [bp - 4], 17
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 1
+    mov     word [bp - 4], 18
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 1
+    mov     word [bp - 4], 19
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 1
+    mov     word [bp - 4], 20
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 1
+    mov     word [bp - 4], 21
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 1
+    mov     word [bp - 4], 22
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 1
+    mov     word [bp - 4], 23
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 1
+    mov     word [bp - 4], 24
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 1
+    mov     word [bp - 4], 25
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 1
+    mov     word [bp - 4], 26
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 1
+    mov     word [bp - 4], 27
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 1
+    mov     word [bp - 4], 28
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 1
+    mov     word [bp - 4], 29
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 1
+    mov     word [bp - 4], 30
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 2
+    mov     word [bp - 4], 1
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 2
+    mov     word [bp - 4], 6
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 2
+    mov     word [bp - 4], 8
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 2
+    mov     word [bp - 4], 9
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 2
+    mov     word [bp - 4], 11
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 2
+    mov     word [bp - 4], 16
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 2
+    mov     word [bp - 4], 18
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 2
+    mov     word [bp - 4], 19
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 2
+    mov     word [bp - 4], 21
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 2
+    mov     word [bp - 4], 26
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 2
+    mov     word [bp - 4], 30
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 3
+    mov     word [bp - 4], 1
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 3
+    mov     word [bp - 4], 3
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 3
+    mov     word [bp - 4], 4
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 3
+    mov     word [bp - 4], 5
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 3
+    mov     word [bp - 4], 6
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 3
+    mov     word [bp - 4], 9
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 3
+    mov     word [bp - 4], 11
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 3
+    mov     word [bp - 4], 13
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 3
+    mov     word [bp - 4], 14
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 3
+    mov     word [bp - 4], 16
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 3
+    mov     word [bp - 4], 18
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 3
+    mov     word [bp - 4], 21
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 3
+    mov     word [bp - 4], 23
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 3
+    mov     word [bp - 4], 24
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 3
+    mov     word [bp - 4], 25
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 3
+    mov     word [bp - 4], 26
+    call    _draw_block
+    mov 	ax, [colorLightRed]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 3
+    mov     word [bp - 4], 28
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 3
+    mov     word [bp - 4], 30
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 4
+    mov     word [bp - 4], 1
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 4
+    mov     word [bp - 4], 6
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 4
+    mov     word [bp - 4], 11
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 4
+    mov     word [bp - 4], 13
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 4
+    mov     word [bp - 4], 14
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 4
+    mov     word [bp - 4], 16
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 4
+    mov     word [bp - 4], 20
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 4
+    mov     word [bp - 4], 21
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 4
+    mov     word [bp - 4], 26
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 4
+    mov     word [bp - 4], 30
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 5
+    mov     word [bp - 4], 1
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 5
+    mov     word [bp - 4], 2
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 5
+    mov     word [bp - 4], 3
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 5
+    mov     word [bp - 4], 4
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 5
+    mov     word [bp - 4], 6
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 5
+    mov     word [bp - 4], 8
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 5
+    mov     word [bp - 4], 11
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 5
+    mov     word [bp - 4], 16
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 5
+    mov     word [bp - 4], 18
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 5
+    mov     word [bp - 4], 21
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 5
+    mov     word [bp - 4], 23
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 5
+    mov     word [bp - 4], 24
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 5
+    mov     word [bp - 4], 25
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 5
+    mov     word [bp - 4], 26
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 5
+    mov     word [bp - 4], 27
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 5
+    mov     word [bp - 4], 28
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 5
+    mov     word [bp - 4], 29
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 5
+    mov     word [bp - 4], 30
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 6
+    mov     word [bp - 4], 1
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 6
+    mov     word [bp - 4], 6
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 6
+    mov     word [bp - 4], 8
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 6
+    mov     word [bp - 4], 9
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 6
+    mov     word [bp - 4], 11
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 6
+    mov     word [bp - 4], 13
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 6
+    mov     word [bp - 4], 14
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 6
+    mov     word [bp - 4], 16
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 6
+    mov     word [bp - 4], 18
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 6
+    mov     word [bp - 4], 19
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 6
+    mov     word [bp - 4], 21
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 6
+    mov     word [bp - 4], 26
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 6
+    mov     word [bp - 4], 30
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 7
+    mov     word [bp - 4], 1
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 7
+    mov     word [bp - 4], 2
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 7
+    mov     word [bp - 4], 3
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 7
+    mov     word [bp - 4], 4
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 7
+    mov     word [bp - 4], 5
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 7
+    mov     word [bp - 4], 6
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 7
+    mov     word [bp - 4], 7
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 7
+    mov     word [bp - 4], 8
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 7
+    mov     word [bp - 4], 9
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 7
+    mov     word [bp - 4], 10
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 7
+    mov     word [bp - 4], 11
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 7
+    mov     word [bp - 4], 12
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 7
+    mov     word [bp - 4], 13
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 7
+    mov     word [bp - 4], 14
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 7
+    mov     word [bp - 4], 15
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 7
+    mov     word [bp - 4], 16
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 7
+    mov     word [bp - 4], 17
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 7
+    mov     word [bp - 4], 18
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 7
+    mov     word [bp - 4], 19
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 7
+    mov     word [bp - 4], 20
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 7
+    mov     word [bp - 4], 21
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 7
+    mov     word [bp - 4], 22
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 7
+    mov     word [bp - 4], 23
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 7
+    mov     word [bp - 4], 24
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 7
+    mov     word [bp - 4], 25
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 7
+    mov     word [bp - 4], 26
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 7
+    mov     word [bp - 4], 28
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 7
+    mov     word [bp - 4], 30
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 8
+    mov     word [bp - 4], 1
+    call    _draw_block
+    mov 	ax, [colorLightYellow]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 8
+    mov     word [bp - 4], 28
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 8
+    mov     word [bp - 4], 30
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 9
+    mov     word [bp - 4], 1
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 9
+    mov     word [bp - 4], 3
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 9
+    mov     word [bp - 4], 4
+    call    _draw_block
+    mov 	ax, [colorLightYellow]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 9
+    mov     word [bp - 4], 5
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 9
+    mov     word [bp - 4], 6
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 9
+    mov     word [bp - 4], 7
+    call    _draw_block
+    mov 	ax, [colorLightYellow]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 9
+    mov     word [bp - 4], 8
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 9
+    mov     word [bp - 4], 9
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 9
+    mov     word [bp - 4], 10
+    call    _draw_block
+    mov 	ax, [colorLightYellow]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 9
+    mov     word [bp - 4], 11
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 9
+    mov     word [bp - 4], 12
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 9
+    mov     word [bp - 4], 13
+    call    _draw_block
+    mov 	ax, [colorLightYellow]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 9
+    mov     word [bp - 4], 14
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 9
+    mov     word [bp - 4], 15
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 9
+    mov     word [bp - 4], 16
+    call    _draw_block
+    mov 	ax, [colorLightYellow]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 9
+    mov     word [bp - 4], 17
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 9
+    mov     word [bp - 4], 18
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 9
+    mov     word [bp - 4], 19
+    call    _draw_block
+    mov 	ax, [colorLightYellow]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 9
+    mov     word [bp - 4], 20
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 9
+    mov     word [bp - 4], 21
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 9
+    mov     word [bp - 4], 22
+    call    _draw_block
+    mov 	ax, [colorLightYellow]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 9
+    mov     word [bp - 4], 23
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 9
+    mov     word [bp - 4], 24
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 9
+    mov     word [bp - 4], 25
+    call    _draw_block
+    mov 	ax, [colorLightYellow]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 9
+    mov     word [bp - 4], 26
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 9
+    mov     word [bp - 4], 27
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 9
+    mov     word [bp - 4], 28
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 9
+    mov     word [bp - 4], 30
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 10
+    mov     word [bp - 4], 1
+    call    _draw_block
+    mov 	ax, [colorLightYellow]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 10
+    mov     word [bp - 4], 3
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 10
+    mov     word [bp - 4], 30
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 11
+    mov     word [bp - 4], 1
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 11
+    mov     word [bp - 4], 3
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 11
+    mov     word [bp - 4], 5
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 11
+    mov     word [bp - 4], 6
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 11
+    mov     word [bp - 4], 7
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 11
+    mov     word [bp - 4], 8
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 11
+    mov     word [bp - 4], 9
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 11
+    mov     word [bp - 4], 10
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 11
+    mov     word [bp - 4], 11
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 11
+    mov     word [bp - 4], 12
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 11
+    mov     word [bp - 4], 13
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 11
+    mov     word [bp - 4], 14
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 11
+    mov     word [bp - 4], 15
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 11
+    mov     word [bp - 4], 16
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 11
+    mov     word [bp - 4], 17
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 11
+    mov     word [bp - 4], 18
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 11
+    mov     word [bp - 4], 19
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 11
+    mov     word [bp - 4], 20
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 11
+    mov     word [bp - 4], 21
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 11
+    mov     word [bp - 4], 22
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 11
+    mov     word [bp - 4], 23
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 11
+    mov     word [bp - 4], 24
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 11
+    mov     word [bp - 4], 25
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 11
+    mov     word [bp - 4], 26
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 11
+    mov     word [bp - 4], 27
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 11
+    mov     word [bp - 4], 28
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 11
+    mov     word [bp - 4], 29
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 11
+    mov     word [bp - 4], 30
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 12
+    mov     word [bp - 4], 1
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 12
+    mov     word [bp - 4], 3
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 12
+    mov     word [bp - 4], 30
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 13
+    mov     word [bp - 4], 1
+    call    _draw_block
+    mov 	ax, [colorLightYellow]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 13
+    mov     word [bp - 4], 3
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 13
+    mov     word [bp - 4], 4
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 13
+    mov     word [bp - 4], 5
+    call    _draw_block
+    mov 	ax, [colorLightYellow]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 13
+    mov     word [bp - 4], 6
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 13
+    mov     word [bp - 4], 7
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 13
+    mov     word [bp - 4], 8
+    call    _draw_block
+    mov 	ax, [colorLightYellow]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 13
+    mov     word [bp - 4], 9
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 13
+    mov     word [bp - 4], 10
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 13
+    mov     word [bp - 4], 11
+    call    _draw_block
+    mov 	ax, [colorLightYellow]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 13
+    mov     word [bp - 4], 12
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 13
+    mov     word [bp - 4], 13
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 13
+    mov     word [bp - 4], 14
+    call    _draw_block
+    mov 	ax, [colorLightYellow]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 13
+    mov     word [bp - 4], 15
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 13
+    mov     word [bp - 4], 16
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 13
+    mov     word [bp - 4], 17
+    call    _draw_block
+    mov 	ax, [colorLightYellow]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 13
+    mov     word [bp - 4], 18
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 13
+    mov     word [bp - 4], 19
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 13
+    mov     word [bp - 4], 20
+    call    _draw_block
+    mov 	ax, [colorLightYellow]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 13
+    mov     word [bp - 4], 21
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 13
+    mov     word [bp - 4], 22
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 13
+    mov     word [bp - 4], 23
+    call    _draw_block
+    mov 	ax, [colorLightYellow]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 13
+    mov     word [bp - 4], 24
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 13
+    mov     word [bp - 4], 25
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 13
+    mov     word [bp - 4], 26
+    call    _draw_block
+    mov 	ax, [colorLightYellow]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 13
+    mov     word [bp - 4], 27
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 13
+    mov     word [bp - 4], 28
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 13
+    mov     word [bp - 4], 30
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 14
+    mov     word [bp - 4], 1
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 14
+    mov     word [bp - 4], 30
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 15
+    mov     word [bp - 4], 1
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 15
+    mov     word [bp - 4], 2
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 15
+    mov     word [bp - 4], 3
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 15
+    mov     word [bp - 4], 4
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 15
+    mov     word [bp - 4], 5
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 15
+    mov     word [bp - 4], 6
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 15
+    mov     word [bp - 4], 7
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 15
+    mov     word [bp - 4], 8
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 15
+    mov     word [bp - 4], 9
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 15
+    mov     word [bp - 4], 10
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 15
+    mov     word [bp - 4], 11
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 15
+    mov     word [bp - 4], 12
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 15
+    mov     word [bp - 4], 13
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 15
+    mov     word [bp - 4], 14
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 15
+    mov     word [bp - 4], 15
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 15
+    mov     word [bp - 4], 16
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 15
+    mov     word [bp - 4], 17
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 15
+    mov     word [bp - 4], 18
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 15
+    mov     word [bp - 4], 19
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 15
+    mov     word [bp - 4], 20
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 15
+    mov     word [bp - 4], 21
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 15
+    mov     word [bp - 4], 22
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 15
+    mov     word [bp - 4], 23
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 15
+    mov     word [bp - 4], 24
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 15
+    mov     word [bp - 4], 25
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 15
+    mov     word [bp - 4], 26
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 15
+    mov     word [bp - 4], 27
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 15
+    mov     word [bp - 4], 28
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 15
+    mov     word [bp - 4], 29
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 15
+    mov     word [bp - 4], 30
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 16
+    mov     word [bp - 4], 1
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 16
+    mov     word [bp - 4], 2
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 16
+    mov     word [bp - 4], 3
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 16
+    mov     word [bp - 4], 4
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 16
+    mov     word [bp - 4], 5
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 16
+    mov     word [bp - 4], 6
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 16
+    mov     word [bp - 4], 7
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 16
+    mov     word [bp - 4], 8
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 16
+    mov     word [bp - 4], 9
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 16
+    mov     word [bp - 4], 10
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 16
+    mov     word [bp - 4], 11
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 16
+    mov     word [bp - 4], 12
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 16
+    mov     word [bp - 4], 13
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 16
+    mov     word [bp - 4], 14
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 16
+    mov     word [bp - 4], 15
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 16
+    mov     word [bp - 4], 16
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 16
+    mov     word [bp - 4], 17
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 16
+    mov     word [bp - 4], 18
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 16
+    mov     word [bp - 4], 19
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 16
+    mov     word [bp - 4], 20
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 16
+    mov     word [bp - 4], 21
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 16
+    mov     word [bp - 4], 22
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 16
+    mov     word [bp - 4], 23
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 16
+    mov     word [bp - 4], 24
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 16
+    mov     word [bp - 4], 25
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 16
+    mov     word [bp - 4], 26
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 16
+    mov     word [bp - 4], 27
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 16
+    mov     word [bp - 4], 28
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 16
+    mov     word [bp - 4], 29
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 16
+    mov     word [bp - 4], 30
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 17
+    mov     word [bp - 4], 1
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 17
+    mov     word [bp - 4], 2
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 17
+    mov     word [bp - 4], 3
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 17
+    mov     word [bp - 4], 4
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 17
+    mov     word [bp - 4], 5
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 17
+    mov     word [bp - 4], 6
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 17
+    mov     word [bp - 4], 7
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 17
+    mov     word [bp - 4], 8
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 17
+    mov     word [bp - 4], 9
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 17
+    mov     word [bp - 4], 10
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 17
+    mov     word [bp - 4], 11
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 17
+    mov     word [bp - 4], 12
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 17
+    mov     word [bp - 4], 13
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 17
+    mov     word [bp - 4], 14
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 17
+    mov     word [bp - 4], 15
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 17
+    mov     word [bp - 4], 16
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 17
+    mov     word [bp - 4], 17
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 17
+    mov     word [bp - 4], 18
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 17
+    mov     word [bp - 4], 19
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 17
+    mov     word [bp - 4], 20
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 17
+    mov     word [bp - 4], 21
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 17
+    mov     word [bp - 4], 22
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 17
+    mov     word [bp - 4], 23
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 17
+    mov     word [bp - 4], 24
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 17
+    mov     word [bp - 4], 25
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 17
+    mov     word [bp - 4], 26
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 17
+    mov     word [bp - 4], 27
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 17
+    mov     word [bp - 4], 28
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 17
+    mov     word [bp - 4], 29
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 17
+    mov     word [bp - 4], 30
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 18
+    mov     word [bp - 4], 1
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 18
+    mov     word [bp - 4], 2
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 18
+    mov     word [bp - 4], 3
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 18
+    mov     word [bp - 4], 4
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 18
+    mov     word [bp - 4], 5
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 18
+    mov     word [bp - 4], 6
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 18
+    mov     word [bp - 4], 7
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 18
+    mov     word [bp - 4], 8
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 18
+    mov     word [bp - 4], 9
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 18
+    mov     word [bp - 4], 10
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 18
+    mov     word [bp - 4], 11
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 18
+    mov     word [bp - 4], 12
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 18
+    mov     word [bp - 4], 13
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 18
+    mov     word [bp - 4], 14
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 18
+    mov     word [bp - 4], 15
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 18
+    mov     word [bp - 4], 16
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 18
+    mov     word [bp - 4], 17
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 18
+    mov     word [bp - 4], 18
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 18
+    mov     word [bp - 4], 19
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 18
+    mov     word [bp - 4], 20
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 18
+    mov     word [bp - 4], 21
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 18
+    mov     word [bp - 4], 22
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 18
+    mov     word [bp - 4], 23
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 18
+    mov     word [bp - 4], 24
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 18
+    mov     word [bp - 4], 25
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 18
+    mov     word [bp - 4], 26
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 18
+    mov     word [bp - 4], 27
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 18
+    mov     word [bp - 4], 28
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 18
+    mov     word [bp - 4], 29
+    call    _draw_block
+    mov 	ax, [colorLightGreen]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 18
+    mov     word [bp - 4], 30
+    call    _draw_block
 	.contMainLoop:
 	mov 	ax, 0x0
 	int 	0x16
@@ -628,7 +2343,7 @@ task_b:
 
 ;you guys might want to check this...
 
-	mov 	ax, 0x1
+	mov 	ax, 0x0
 	int 	0x16
 
 	cmp 	ax, 0
