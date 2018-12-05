@@ -516,6 +516,8 @@ cmp     word [direction], 119
 .up:
 	call    _pop
     sub     word [up_down], 1
+	cmp 	word [up_down], 2
+	je 		.not_alive 
 	mov 	di, word [up_down]
 	mov 	si, word [left_right]
     call    _draw_snake_block
@@ -527,6 +529,8 @@ cmp     word [direction], 119
 .left:
 	call    _pop
     sub     word [left_right], 1
+	cmp 	word [left_right], 0
+	je 		.not_alive
 	mov 	si, word [left_right]
 	mov 	di, word [up_down]
     call    _draw_snake_block
@@ -538,6 +542,8 @@ cmp     word [direction], 119
 .down:
 	call    _pop
     add     word [up_down], 1
+	cmp 	word [up_down], 19
+	je 		.not_alive
 	mov 	di, word [up_down]
 	mov 	si, word [left_right]
     call    _draw_snake_block
@@ -548,6 +554,8 @@ cmp     word [direction], 119
 .right:
 	call    _pop
     add     word [left_right], 1
+	cmp 	word [left_right], 31
+	je 		.not_alive
 	mov 	si, word [left_right]
 	mov 	di, word [up_down]
     call    _draw_snake_block
@@ -556,6 +564,9 @@ cmp     word [direction], 119
 	call	_push
 
     jmp     .again
+
+.not_alive:
+	mov 	word [dead], 0
 
 .again:
 	ret
@@ -654,6 +665,8 @@ digits		        db	"0123456789abcdef"
 length_of_snake   	db 4
 black_it_right_left db 0
 black_it_up_down    db 0
+dead				db 0
+
 
 current_task 		dw 0 ; must always be a multiple of 2
 stacks 				times (256 * 31) db 0 ; 31 fake stacks of size 256 bytes
