@@ -148,9 +148,10 @@ mov     si, 9
 mov     di, 9
 mov 	[left_right], di
 mov 	[up_down], si
-mov 	al, 9
-mov 	ah, 9
+mov 	al, [left_right]
+mov 	ah, [up_down]
 call 	_push
+
 ;__________________________END SNAKE BLOCK_______________________________________________
 
 
@@ -241,7 +242,7 @@ task_b: ;drawing task
 
 ;you guys might want to check this...
 
-	mov 	ax, 0x0
+	mov 	ax, 0x10
 	int 	0x16
 
 	cmp 	ax, 0
@@ -474,8 +475,8 @@ puts:
 timerHandler:
 	push 	bx
 	mov 	bx, [tickCounter]
-	; Tick every ~0.22 seconds (4/18.2)
-	cmp 	bx, 0x4
+	; Tick every ~0.11 seconds (2/18.2)
+	cmp 	bx, [tickSpeed]
 	je 		.resetTickCounter
 	inc 	bx
 	mov 	[tickCounter], bx
@@ -513,6 +514,7 @@ cmp     word [direction], 119
 
 	
 .up:
+	call    _pop
     sub     word [up_down], 1
 	mov 	di, word [up_down]
 	mov 	si, word [left_right]
@@ -520,10 +522,10 @@ cmp     word [direction], 119
 	mov 	ah, [left_right]
 	mov 	al, [up_down]
 	call	_push
-	;call	_pop 					;does not work properly
 
     jmp     .again
 .left:
+	call    _pop
     sub     word [left_right], 1
 	mov 	si, word [left_right]
 	mov 	di, word [up_down]
@@ -531,20 +533,20 @@ cmp     word [direction], 119
 	mov 	ah, [left_right]
 	mov 	al, [up_down]
 	call	_push
-	;call	_pop 
+
     jmp     .again
 .down:
+	call    _pop
     add     word [up_down], 1
 	mov 	di, word [up_down]
 	mov 	si, word [left_right]
     call    _draw_snake_block
 	mov 	ah, [left_right]
 	mov 	al, [up_down]
-	call	_push
-	;call	_pop 				
-
+	call	_push			
     jmp     .again
 .right:
+	call    _pop
     add     word [left_right], 1
 	mov 	si, word [left_right]
 	mov 	di, word [up_down]
@@ -552,7 +554,7 @@ cmp     word [direction], 119
 	mov 	ah, [left_right]
 	mov 	al, [up_down]
 	call	_push
-	;call    _pop
+
     jmp     .again
 
 .again:
@@ -625,9 +627,8 @@ OUT     61H,AL           ; Copy it to port 61H of the PPI Chip
     ret
 
 _pop:   
-	mov 	dx, [length_of_snake]
+	sub 	word [stack_it], 2
 	mov 	cx, [stack_it]
-	sub 	cx, dx 
     lea     bx, [new_stack]
     add     bx, cx 
     mov     ax, [bx]
@@ -695,9 +696,11 @@ IVT8_SEGMENT_SLOT	equ	IVT8_OFFSET_SLOT + 2
 
 
 
-testCounter:       	dw 2
-stack_it: 			dw 0
+testCounter       	dw 2
+stack_it 			dw 0
+
+tickSpeed			dw 0x12
 
 section .bss
 
-    new_stack: resw 1000
+    new_stack resw 1000
