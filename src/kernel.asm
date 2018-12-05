@@ -2476,10 +2476,15 @@ _draw_snake_block_2:
 
 ;________________________START SNAKE BLOCK FUCTION_______________________________________
 
-	; di = row
-	; si = column
+	;di = row
+	;si = column
 	_draw_snake_block:
-
+	;mov [lr], di
+	;mov [ud], si 
+	;mov al, [ud]
+	;mov ah, [lr]
+	
+	
 	mov     word [bp - 4], si
 	mov     word [bp - 2], di
 
@@ -2826,7 +2831,7 @@ OUT     61H,AL           ; Copy it to port 61H of the PPI Chip
                          ; to turn OFF the speaker.
 	ret
 
-	_push: 
+_push: 
     mov     cx, [stack_it]
     lea     bx, [new_stack]
     add     bx, cx
@@ -2866,6 +2871,8 @@ black_it_right_left db 0
 black_it_up_down    db 0
 dead				db 1
 running 			db 0
+lr                  db 0
+ud                  db 0
 
 
 current_task 		dw 0 ; must always be a multiple of 2
