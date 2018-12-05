@@ -156,8 +156,24 @@ call 	_push
 
 
 
-.loop_forever_main:                     ; have main print for eternity
 
+
+.loop_forever_main:                     ; have main print for eternity
+	cmp 	byte [dead], 1
+	jne 	.endMainLoop
+	cmp 	byte [running], 0
+	jne 	.endMainLoop
+	mov 	byte [dead], 0
+	mov 	byte [running], 0
+	mov 	ax, [colorAqua]
+	call 	fillScreen
+	.contMainLoop:
+	mov 	ax, 0x0
+	int 	0x16
+	cmp 	bl, 20
+	je 	.contMainLoop
+	mov 	byte [running], 1
+	.endMainLoop:
 	call    yield
 	jmp     .loop_forever_main
 ;______________________________________________________________________________
@@ -228,8 +244,13 @@ yield:
 task_a:
 .loop_forever_1:
 	cmp 	byte [dead], 1
-	jne 		.task_a_end
+	jne 	.task_a_end
+	cmp 	byte [running], 1
+	jne 	.task_a_end
+	pusha
 	; Draw GAME OVER text
+	mov 	ax, [colorBlack]
+	call 	fillScreen
     mov 	ax, [colorWhite]
     mov     word [bp - 6], ax
     mov     word [bp - 2], 3
@@ -663,7 +684,8 @@ task_a:
     mov     word [bp - 2], 16
     mov     word [bp - 4], 25
     call    _draw_block
-	mov 	byte [dead], 2
+	mov 	byte [running], 0
+	popa
 	.task_a_end:
 	call    yield
 	jmp     .loop_forever_1
@@ -929,6 +951,8 @@ timerHandler:
 tick:
 	pusha
 	
+	cmp 	byte [running], 1
+	jne 	.endTick
 	cmp 	byte [dead], 0
 	jne 	.endTick
 
@@ -937,6 +961,21 @@ tick:
 	
 	.endTick:
 	popa
+	ret
+
+fillScreen:
+	push 	bx
+	push 	ax
+	mov     ax, 0xA000
+	mov     es, ax
+	pop 	ax
+	xor 	bx, bx
+	.drawFiller:
+	mov     [es:bx], ax
+	inc 	bx
+	cmp 	bx, 0xFA00
+	jne 	.drawFiller
+	pop 	bx
 	ret
 
 movesnake:
@@ -1103,7 +1142,8 @@ digits		        db	"0123456789abcdef"
 length_of_snake   	db 2
 black_it_right_left db 0
 black_it_up_down    db 0
-dead				db 0
+dead				db 1
+running 			db 0
 
 
 current_task 		dw 0 ; must always be a multiple of 2
