@@ -629,20 +629,21 @@ OUT     61H,AL           ; Copy it to port 61H of the PPI Chip
 	ret
 
 	_push: 
-    mov     dx, ax
     mov     cx, [stack_it]
     lea     bx, [new_stack]
     add     bx, cx
-    mov     [bx], dx
+    mov     [bx], ax
     add     word [stack_it], 2
     ret
 
 _pop:   
-	sub 	word [stack_it], 2
+	mov 	dx, [length_of_snake]
 	mov 	cx, [stack_it]
+	sub 	cx, dx
     lea     bx, [new_stack]
     add     bx, cx 
     mov     ax, [bx]
+
 	mov 	[black_it_right_left], al
 	mov 	[black_it_up_down], ah
 	mov 	si, [black_it_up_down]
@@ -662,7 +663,7 @@ previous_direction  dw 0
 task_d_str 			db "I am the random food task", 13, 10, 0
 score               dw 0
 digits		        db	"0123456789abcdef"
-length_of_snake   	db 4
+length_of_snake   	db 2
 black_it_right_left db 0
 black_it_up_down    db 0
 dead				db 0
