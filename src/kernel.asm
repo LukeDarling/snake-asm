@@ -148,8 +148,8 @@ mov     si, 9
 mov     di, 9
 mov 	[left_right], di
 mov 	[up_down], si
-mov 	al, [left_right]
-mov 	ah, [up_down]
+mov 	al, 9
+mov 	ah, 9
 call 	_push
 ;__________________________END SNAKE BLOCK_______________________________________________
 
@@ -357,6 +357,20 @@ _draw_block:
 	ret
 ;________________________END DRAW BLOCK FUCTION__________________________________________
 
+;needs to be here because the value of the base pointer needs to be
+;set to si and di and the _draw_block funtion then can be called 
+
+_draw_snake_block_2:
+
+	mov     word [bp - 4], si
+	mov     word [bp - 2], di
+
+	; Draw initial black square
+	mov		ax, [colorAqua]
+	mov     word [bp - 6], ax
+	call _draw_block
+	ret
+
 ;________________________START SNAKE BLOCK FUCTION_______________________________________
 
 	; di = row
@@ -503,9 +517,10 @@ cmp     word [direction], 119
 	mov 	di, word [up_down]
 	mov 	si, word [left_right]
     call    _draw_snake_block
-	mov 	al, [left_right]
-	mov 	ah, [up_down]
+	mov 	ah, [left_right]
+	mov 	al, [up_down]
 	call	_push
+	;call	_pop 					;does not work properly
 
     jmp     .again
 .left:
@@ -513,19 +528,20 @@ cmp     word [direction], 119
 	mov 	si, word [left_right]
 	mov 	di, word [up_down]
     call    _draw_snake_block
-	mov 	al, [left_right]
-	mov 	ah, [up_down]
+	mov 	ah, [left_right]
+	mov 	al, [up_down]
 	call	_push
-
+	;call	_pop 
     jmp     .again
 .down:
     add     word [up_down], 1
 	mov 	di, word [up_down]
 	mov 	si, word [left_right]
     call    _draw_snake_block
-	mov 	al, [left_right]
-	mov 	ah, [up_down]
+	mov 	ah, [left_right]
+	mov 	al, [up_down]
 	call	_push
+	;call	_pop 				
 
     jmp     .again
 .right:
@@ -533,10 +549,10 @@ cmp     word [direction], 119
 	mov 	si, word [left_right]
 	mov 	di, word [up_down]
     call    _draw_snake_block
-	mov 	al, [left_right]
-	mov 	ah, [up_down]
+	mov 	ah, [left_right]
+	mov 	al, [up_down]
 	call	_push
-
+	;call    _pop
     jmp     .again
 
 .again:
@@ -610,11 +626,16 @@ OUT     61H,AL           ; Copy it to port 61H of the PPI Chip
 
 _pop:   
 	mov 	dx, [length_of_snake]
-	mov     cx, [stack_it]
-    sub     cx, dx 
+	mov 	cx, [stack_it]
+	sub 	cx, dx 
     lea     bx, [new_stack]
     add     bx, cx 
     mov     ax, [bx]
+	mov 	[black_it_right_left], al
+	mov 	[black_it_up_down], ah
+	mov 	si, [black_it_up_down]
+	mov 	di, [black_it_right_left]
+	call 	_draw_snake_block_2
     ret 
 	
 SECTION .data
@@ -679,4 +700,4 @@ stack_it: 			dw 0
 
 section .bss
 
-    new_stack: resw 100
+    new_stack: resw 1000
