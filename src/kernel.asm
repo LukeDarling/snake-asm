@@ -158,9 +158,7 @@ call 	_push
 
 .loop_forever_main:                     ; have main print for eternity
 
-	call    yield	                    ; yield to next waiting task
-	mov     ah, 0x0                     ; wait for user input
-	int     0x16
+	call    yield
 	jmp     .loop_forever_main
 ;______________________________________________________________________________
 ; di should contain the address of the function to run for a task
@@ -227,22 +225,458 @@ yield:
 	popa
 	ret
 
-task_a: ;music task
+task_a:
 .loop_forever_1:
-	
-	
+	cmp 	byte [dead], 1
+	jne 		.task_a_end
+	; Draw GAME OVER text
+    mov 	ax, [colorWhite]
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 3
+    mov     word [bp - 4], 7
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 3
+    mov     word [bp - 4], 8
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 3
+    mov     word [bp - 4], 12
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 3
+    mov     word [bp - 4], 13
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 3
+    mov     word [bp - 4], 17
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 3
+    mov     word [bp - 4], 19
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 3
+    mov     word [bp - 4], 22
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 3
+    mov     word [bp - 4], 23
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 3
+    mov     word [bp - 4], 24
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 3
+    mov     word [bp - 4], 25
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 4
+    mov     word [bp - 4], 6
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 4
+    mov     word [bp - 4], 9
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 4
+    mov     word [bp - 4], 11
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 4
+    mov     word [bp - 4], 14
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 4
+    mov     word [bp - 4], 16
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 4
+    mov     word [bp - 4], 18
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 4
+    mov     word [bp - 4], 20
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 4
+    mov     word [bp - 4], 22
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 5
+    mov     word [bp - 4], 6
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 5
+    mov     word [bp - 4], 11
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 5
+    mov     word [bp - 4], 14
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 5
+    mov     word [bp - 4], 16
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 5
+    mov     word [bp - 4], 18
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 5
+    mov     word [bp - 4], 20
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 5
+    mov     word [bp - 4], 22
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 5
+    mov     word [bp - 4], 23
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 5
+    mov     word [bp - 4], 24
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 6
+    mov     word [bp - 4], 6
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 6
+    mov     word [bp - 4], 8
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 6
+    mov     word [bp - 4], 9
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 6
+    mov     word [bp - 4], 11
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 6
+    mov     word [bp - 4], 12
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 6
+    mov     word [bp - 4], 13
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 6
+    mov     word [bp - 4], 14
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 6
+    mov     word [bp - 4], 16
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 6
+    mov     word [bp - 4], 18
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 6
+    mov     word [bp - 4], 20
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 6
+    mov     word [bp - 4], 22
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 7
+    mov     word [bp - 4], 6
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 7
+    mov     word [bp - 4], 9
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 7
+    mov     word [bp - 4], 11
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 7
+    mov     word [bp - 4], 14
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 7
+    mov     word [bp - 4], 16
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 7
+    mov     word [bp - 4], 18
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 7
+    mov     word [bp - 4], 20
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 7
+    mov     word [bp - 4], 22
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 8
+    mov     word [bp - 4], 7
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 8
+    mov     word [bp - 4], 8
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 8
+    mov     word [bp - 4], 11
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 8
+    mov     word [bp - 4], 14
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 8
+    mov     word [bp - 4], 16
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 8
+    mov     word [bp - 4], 18
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 8
+    mov     word [bp - 4], 20
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 8
+    mov     word [bp - 4], 22
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 8
+    mov     word [bp - 4], 23
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 8
+    mov     word [bp - 4], 24
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 8
+    mov     word [bp - 4], 25
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 11
+    mov     word [bp - 4], 7
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 11
+    mov     word [bp - 4], 8
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 11
+    mov     word [bp - 4], 11
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 11
+    mov     word [bp - 4], 15
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 11
+    mov     word [bp - 4], 17
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 11
+    mov     word [bp - 4], 18
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 11
+    mov     word [bp - 4], 19
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 11
+    mov     word [bp - 4], 20
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 11
+    mov     word [bp - 4], 22
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 11
+    mov     word [bp - 4], 23
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 11
+    mov     word [bp - 4], 24
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 12
+    mov     word [bp - 4], 6
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 12
+    mov     word [bp - 4], 9
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 12
+    mov     word [bp - 4], 11
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 12
+    mov     word [bp - 4], 15
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 12
+    mov     word [bp - 4], 17
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 12
+    mov     word [bp - 4], 22
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 12
+    mov     word [bp - 4], 25
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 13
+    mov     word [bp - 4], 6
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 13
+    mov     word [bp - 4], 9
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 13
+    mov     word [bp - 4], 11
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 13
+    mov     word [bp - 4], 15
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 13
+    mov     word [bp - 4], 17
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 13
+    mov     word [bp - 4], 18
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 13
+    mov     word [bp - 4], 19
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 13
+    mov     word [bp - 4], 22
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 13
+    mov     word [bp - 4], 25
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 14
+    mov     word [bp - 4], 6
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 14
+    mov     word [bp - 4], 9
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 14
+    mov     word [bp - 4], 12
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 14
+    mov     word [bp - 4], 14
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 14
+    mov     word [bp - 4], 17
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 14
+    mov     word [bp - 4], 22
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 14
+    mov     word [bp - 4], 23
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 14
+    mov     word [bp - 4], 24
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 15
+    mov     word [bp - 4], 6
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 15
+    mov     word [bp - 4], 9
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 15
+    mov     word [bp - 4], 12
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 15
+    mov     word [bp - 4], 14
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 15
+    mov     word [bp - 4], 17
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 15
+    mov     word [bp - 4], 22
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 15
+    mov     word [bp - 4], 24
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 16
+    mov     word [bp - 4], 7
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 16
+    mov     word [bp - 4], 8
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 16
+    mov     word [bp - 4], 13
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 16
+    mov     word [bp - 4], 17
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 16
+    mov     word [bp - 4], 18
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 16
+    mov     word [bp - 4], 19
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 16
+    mov     word [bp - 4], 20
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 16
+    mov     word [bp - 4], 22
+    call    _draw_block
+    mov     word [bp - 6], ax
+    mov     word [bp - 2], 16
+    mov     word [bp - 4], 25
+    call    _draw_block
+	mov 	byte [dead], 2
+	.task_a_end:
 	call    yield
 	jmp     .loop_forever_1
 	; does not terminate or return
 
 
 	
-task_b: ;drawing task
+task_b:
 .loop_forever_3:
 
 ;you guys might want to check this...
 
-	mov 	ax, 0x10
+	mov 	ax, 0x1
 	int 	0x16
 
 	cmp 	ax, 0
@@ -475,7 +909,6 @@ puts:
 timerHandler:
 	push 	bx
 	mov 	bx, [tickCounter]
-	; Tick every ~0.11 seconds (2/18.2)
 	cmp 	bx, [tickSpeed]
 	je 		.resetTickCounter
 	inc 	bx
@@ -496,9 +929,13 @@ timerHandler:
 tick:
 	pusha
 	
-	call movesnake
-	call doMusic
+	cmp 	byte [dead], 0
+	jne 	.endTick
+
+	call 	movesnake
+	call 	doMusic
 	
+	.endTick:
 	popa
 	ret
 
@@ -566,7 +1003,7 @@ cmp     word [direction], 119
     jmp     .again
 
 .not_alive:
-	mov 	word [dead], 1
+	mov 	byte [dead], 1
 
 .again:
 	ret
@@ -713,7 +1150,8 @@ IVT8_SEGMENT_SLOT	equ	IVT8_OFFSET_SLOT + 2
 testCounter       	dw 2
 stack_it 			dw 0
 
-tickSpeed			dw 0x12
+; Tick every ~0.16 seconds (3/18.2)
+tickSpeed			dw 0x3
 
 section .bss
 
