@@ -2979,9 +2979,9 @@ _push:
     ret
 
 _pop:   
-	mov 	dx, [length_of_snake]
+	mov 	dx, [Place_holder]
 	mov 	cx, [stack_it]
-	sub 	cx, 6
+	sub 	cx, dx 
     mov     [stack_it], cx
     lea     bx, [snake_stack_X]
     add     bx, cx 
@@ -2990,9 +2990,9 @@ _pop:
     mov     [stack_it], cx
     mov     ax, [bx]
 
-    mov 	dx, [length_of_snake]
+    mov 	dx, [Place_holder]
 	mov 	cx, [stack_it_2]
-	sub 	cx, 6
+	sub 	cx, dx
     lea     bx, [snake_stack_Y]
     add     bx, cx 
     mov     dx, [Place_holder]
