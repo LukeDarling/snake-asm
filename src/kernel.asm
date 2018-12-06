@@ -85,7 +85,7 @@ mov     si, 9
 mov     di, 10
 call _draw_snake_block
 mov     si, 9        
-mov     di, 9
+mov     di, 10
 mov 	[left_right], di
 mov 	[up_down], si
 mov 	ax, [left_right]
@@ -94,15 +94,17 @@ call 	_push
 
 mov		dx, [colorBlue]
 mov     si, 9        
-mov     di, 9
+mov     di, 11
 call _draw_snake_block
 mov     si, 9        
-mov     di, 10
+mov     di, 11
 mov 	[left_right], di
 mov 	[up_down], si
 mov 	ax, [left_right]
 mov 	dx, [up_down]
 call 	_push
+
+
 
 ;__________________________END SNAKE BLOCK_______________________________________________
 
@@ -2492,7 +2494,7 @@ _draw_snake_block_2:
 	mov     word [bp - 2], di
 
 	; Draw initial black square
-	mov		ax, [colorAqua]
+	mov		ax, [colorBlack]
 	mov     word [bp - 6], ax
 	call _draw_block
 	ret
@@ -2811,51 +2813,52 @@ timerdemo:
 	ret
 
 doMusic:
-;http://www.intel-assembler.it/portale/5/make-sound-from-the-speaker-in-assembly/8255-8255-8284-asm-program-example.asp
-mov     dx,1000          ; Number of times to repeat whole routine.
+	MOV     DX,2000          ; Number of times to repeat whole routine.
 
-mov     bx,500             ; Frequency value.
+MOV     BX,1             ; Frequency value.
 
-mov     al, 10110110B    ; The Magic Number (use this binary number only)
-out     43H, al          ; Send it to the initializing port 43H Timer 2.
+MOV     AL, 10110110B    ; The Magic Number (use this binary number only)
+OUT     43H, AL          ; Send it to the initializing port 43H Timer 2.
 
-next_frequency:          ; This is were we will jump back to 2000 times.
+NEXT_FREQUENCY:          ; This is were we will jump back to 2000 times.
 
-mov     ax, bx           ; Move our Frequency value into ax.
+MOV     AX, BX           ; Move our Frequency value into AX.
 
-out     42H, al          ; Send LSB to port 42H.
-mov     al, ah           ; Move MSB into al  
-out     42H, al          ; Send MSB to port 42H.
+OUT     42H, AL          ; Send LSB to port 42H.
+MOV     AL, AH           ; Move MSB into AL  
+OUT     42H, AL          ; Send MSB to port 42H.
 
-in      al, 61H          ; Get current value of port 61H.
-or      al, 00000011B    ; or al to this value, forcing first two bits high.
-out     61H, al          ; Copy it to port 61H of the PPI Chip
+IN      AL, 61H          ; Get current value of port 61H.
+OR      AL, 00000011B    ; OR AL to this value, forcing first two bits high.
+OUT     61H, AL          ; Copy it to port 61H of the PPI Chip
                          ; to turn ON the speaker.
 
-mov     cx, 100          ; Repeat loop 100 times
-delay_loop:              ; Here is where we loop back too.
-loop    delay_loop       ; Jump repeatedly to DELAY_LOOP until cx = 0
+MOV     CX, 100          ; Repeat loop 100 times
+DELAY_LOOP:              ; Here is where we loop back too.
+LOOP    DELAY_LOOP       ; Jump repeatedly to DELAY_LOOP until CX = 0
 
 
-inc     bx               ; Incrementing the value of bx lowers 
+INC     BX               ; Incrementing the value of BX lowers 
                          ; the frequency each time we repeat the
                          ; whole routine
 
-dec     dx               ; Decrement repeat routine count
+DEC     DX               ; Decrement repeat routine count
 
-cmp     dx, 0            ; Is dx (repeat count) = to 0
-jnz     next_frequency   ; If not jump to NEXT_FREQUENCY
+CMP     DX, 0            ; Is DX (repeat count) = to 0
+JNZ     NEXT_FREQUENCY   ; If not jump to NEXT_FREQUENCY
                          ; and do whole routine again.
 
-                         ; Else dx = 0 time to turn speaker OFF
+                         ; Else DX = 0 time to turn speaker OFF
 
-in      al,61H           ; Get current value of port 61H.
-and     al,11111100B     ; and al to this value, forcing first two bits low.
-out     61H,al           ; Copy it to port 61H of the PPI Chip
+IN      AL,61H           ; Get current value of port 61H.
+AND     AL,11111100B     ; AND AL to this value, forcing first two bits low.
+OUT     61H,AL           ; Copy it to port 61H of the PPI Chip
                          ; to turn OFF the speaker.
 	ret
 
 _push: 
+    add     word [Place_holder], 2
+
     mov     cx, [stack_it]
     lea     bx, [new_stack]
     add     bx, cx
@@ -2872,18 +2875,23 @@ _push:
 _pop:   
 	mov 	dx, [length_of_snake]
 	mov 	cx, [stack_it]
-	sub 	cx, 2
+	sub 	cx, 6
     mov     [stack_it], cx
     lea     bx, [new_stack]
     add     bx, cx 
+    mov     dx, [Place_holder]
+    add     cx, dx
+    mov     [stack_it], cx
     mov     ax, [bx]
 
     mov 	dx, [length_of_snake]
 	mov 	cx, [stack_it_2]
-	sub 	cx, 2
-    mov     [stack_it_2], cx
+	sub 	cx, 6
     lea     bx, [new_stack_2]
     add     bx, cx 
+    mov     dx, [Place_holder]
+    add     cx, dx
+    mov     [stack_it_2], cx
     mov     dx, [bx]
 
 	mov 	[black_it_right_left], dx
@@ -2891,6 +2899,9 @@ _pop:
 	mov 	si, [black_it_up_down]
 	mov 	di, [black_it_right_left]
 	call 	_draw_snake_block_2
+
+    sub     word [Place_holder], 2
+
     ret 
 	
 SECTION .data
@@ -2912,6 +2923,7 @@ dead				db 1
 running 			db 0
 lr                  db 0
 ud                  db 0
+Place_holder        dw 0
 
 
 current_task 		dw 0 ; must always be a multiple of 2
