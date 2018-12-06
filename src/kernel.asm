@@ -2811,46 +2811,47 @@ timerdemo:
 	ret
 
 doMusic:
-	MOV     DX,2000          ; Number of times to repeat whole routine.
+;http://www.intel-assembler.it/portale/5/make-sound-from-the-speaker-in-assembly/8255-8255-8284-asm-program-example.asp
+mov     dx,1000          ; Number of times to repeat whole routine.
 
-MOV     BX,1             ; Frequency value.
+mov     bx,500             ; Frequency value.
 
-MOV     AL, 10110110B    ; The Magic Number (use this binary number only)
-OUT     43H, AL          ; Send it to the initializing port 43H Timer 2.
+mov     al, 10110110B    ; The Magic Number (use this binary number only)
+out     43H, al          ; Send it to the initializing port 43H Timer 2.
 
-NEXT_FREQUENCY:          ; This is were we will jump back to 2000 times.
+next_frequency:          ; This is were we will jump back to 2000 times.
 
-MOV     AX, BX           ; Move our Frequency value into AX.
+mov     ax, bx           ; Move our Frequency value into ax.
 
-OUT     42H, AL          ; Send LSB to port 42H.
-MOV     AL, AH           ; Move MSB into AL  
-OUT     42H, AL          ; Send MSB to port 42H.
+out     42H, al          ; Send LSB to port 42H.
+mov     al, ah           ; Move MSB into al  
+out     42H, al          ; Send MSB to port 42H.
 
-IN      AL, 61H          ; Get current value of port 61H.
-OR      AL, 00000011B    ; OR AL to this value, forcing first two bits high.
-OUT     61H, AL          ; Copy it to port 61H of the PPI Chip
+in      al, 61H          ; Get current value of port 61H.
+or      al, 00000011B    ; or al to this value, forcing first two bits high.
+out     61H, al          ; Copy it to port 61H of the PPI Chip
                          ; to turn ON the speaker.
 
-MOV     CX, 100          ; Repeat loop 100 times
-DELAY_LOOP:              ; Here is where we loop back too.
-LOOP    DELAY_LOOP       ; Jump repeatedly to DELAY_LOOP until CX = 0
+mov     cx, 100          ; Repeat loop 100 times
+delay_loop:              ; Here is where we loop back too.
+loop    delay_loop       ; Jump repeatedly to DELAY_LOOP until cx = 0
 
 
-INC     BX               ; Incrementing the value of BX lowers 
+inc     bx               ; Incrementing the value of bx lowers 
                          ; the frequency each time we repeat the
                          ; whole routine
 
-DEC     DX               ; Decrement repeat routine count
+dec     dx               ; Decrement repeat routine count
 
-CMP     DX, 0            ; Is DX (repeat count) = to 0
-JNZ     NEXT_FREQUENCY   ; If not jump to NEXT_FREQUENCY
+cmp     dx, 0            ; Is dx (repeat count) = to 0
+jnz     next_frequency   ; If not jump to NEXT_FREQUENCY
                          ; and do whole routine again.
 
-                         ; Else DX = 0 time to turn speaker OFF
+                         ; Else dx = 0 time to turn speaker OFF
 
-IN      AL,61H           ; Get current value of port 61H.
-AND     AL,11111100B     ; AND AL to this value, forcing first two bits low.
-OUT     61H,AL           ; Copy it to port 61H of the PPI Chip
+in      al,61H           ; Get current value of port 61H.
+and     al,11111100B     ; and al to this value, forcing first two bits low.
+out     61H,al           ; Copy it to port 61H of the PPI Chip
                          ; to turn OFF the speaker.
 	ret
 
