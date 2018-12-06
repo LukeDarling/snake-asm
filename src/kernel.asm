@@ -2948,6 +2948,7 @@ setup:
 
     mov     word [stack_it], 0
     mov     word [stack_it_2], 0
+    mov     word [Place_holder], 0
 
     mov 	dx, 9
     mov 	ax, 9
@@ -2981,7 +2982,7 @@ _push:
 _pop:   
 	mov 	dx, [Place_holder]
 	mov 	cx, [stack_it]
-	sub 	cx, dx 
+	sub 	cx, dx
     mov     [stack_it], cx
     lea     bx, [snake_stack_X]
     add     bx, cx 
