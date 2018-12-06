@@ -2335,7 +2335,7 @@ task_b:
 
 ;you guys might want to check this...
 
-	mov 	ax, 0x0
+	mov 	ax, 0x1
 	int 	0x16
 
 	cmp 	ax, 0
@@ -2352,32 +2352,32 @@ task_b:
     je      .checkdown 
     cmp     word [direction], 100
     je      .checkright
-	jmp 	.skip
+	jmp 	.badmove
 	
-.checkup:
-	cmp word [previous_direction], 115
-	je .badmove
-	jmp .skip
-.checkleft:
-	cmp word [previous_direction], 100
-	je .badmove
-	jmp .skip
-.checkdown:
-	cmp word [previous_direction], 119
-	je .badmove
-	jmp .skip
-.checkright:
-	cmp word [previous_direction], 97
-	je .badmove
-	jmp .skip
+    .checkup:
+        cmp word [previous_direction], 115
+        je .badmove
+        jmp .skip
+    .checkleft:
+        cmp word [previous_direction], 100
+        je .badmove
+        jmp .skip
+    .checkdown:
+        cmp word [previous_direction], 119
+        je .badmove
+        jmp .skip
+    .checkright:
+        cmp word [previous_direction], 97
+        je .badmove
+        jmp .skip
 
-.badmove:
-	mov al, [previous_direction]
-	mov [direction], al
-.skip:
-	call    yield
-	jmp     .loop_forever_3
-	; does not terminate or return
+    .badmove:
+        mov al, [previous_direction]
+        mov [direction], al
+    .skip:
+        call    yield
+        jmp     .loop_forever_3
+        ; does not terminate or return
 
 task_c: ;input task
 .loop_forever_2:
@@ -2388,7 +2388,81 @@ task_c: ;input task
 	
 task_d: ; random food placement task
 .loop_forever_4:
+    pusha
+    cmp     byte [foodConsumed], 0
+    je      .endFoodTask
+    mov     bx, [foodXCounter]
+    add     bx, foodXs
+    mov     cx, [bx]
+    mov     bx, [foodYCounter]
+    add     bx, foodYs
+    mov     dx, [bx]
 
+    mov     ax, [stack_it]
+    inc     ax
+    .loopFoodX:
+    dec     ax
+    mov     bx, ax
+    add     bx, snake_stack_X
+    cmp     [bx], cx
+    je      .newFoodItem
+    cmp     ax, 0
+    jg     .loopFoodX
+
+    mov     ax, [stack_it_2]
+    inc     ax
+    .loopFoodY:
+    dec     ax
+    mov     bx, ax
+    add     bx, snake_stack_Y
+    cmp     [bx], dx
+    je      .newFoodItem
+    cmp     ax, 0
+    jg     .loopFoodY
+
+    mov     byte [foodConsumed], 0
+    mov     [foodX], cx
+    mov     [foodY], dx
+    mov     ax, [colorLightRed]
+    mov     word [bp - 6], ax
+    mov     word [bp - 4], cx
+    mov     word [bp - 2], dx
+    call    _draw_block
+
+    .newFoodItem:
+    mov     dx, [foodXCounter]
+    cmp     dx, 15
+    jge      .resetFoodXCounter
+    inc     dx
+    mov     [foodXCounter], dx
+    jmp     .foodYCounterNext
+    .resetFoodXCounter:
+    xor     dx, dx
+    mov     [foodXCounter], dx
+    .foodYCounterNext:
+    mov     dx, [foodYCounter]
+    cmp     dx, 14
+    jge      .resetFoodYCounter
+    inc     dx
+    mov     [foodYCounter], dx
+    jmp     .endFoodTask
+    .resetFoodYCounter:
+    xor     dx, dx
+    mov     [foodYCounter], dx
+    .endFoodTask:
+    mov     ax, [snakeX]
+    mov     dx, [snakeY]
+    cmp     ax, [foodX]
+    jne     .endFoodCheck
+    cmp     dx, [foodY]
+    jne     .endFoodCheck
+    mov     byte [foodConsumed], 1
+    jmp     .skipPop
+    .endFoodCheck:
+    .skipPop:
+
+
+    popa
 	call    yield
 	jmp     .loop_forever_4
 	; does not terminate or return
@@ -2698,7 +2772,11 @@ fillScreen:
 	ret
 
 movesnake:
-cmp     word [direction], 119
+    pusha
+
+
+
+    cmp     word [direction], 119
     je      .up
     cmp     word [direction], 97
     je      .left
@@ -2709,7 +2787,17 @@ cmp     word [direction], 119
 
 	
 .up:
-	call    _pop
+    mov     ax, [snakeX]
+    mov     dx, [snakeY]
+    cmp     ax, [foodX]
+    jne     .endFoodCheck1
+    cmp     dx, [foodY]
+    jne     .endFoodCheck1
+    mov     byte [foodConsumed], 1
+    jmp     .skipPop1
+    .endFoodCheck1:
+    call    _pop
+    .skipPop1:
     sub     word [snakeY], 1
 	cmp 	word [snakeY], 2
 	je 		.not_alive 
@@ -2722,7 +2810,17 @@ cmp     word [direction], 119
 
     jmp     .again
 .left:
-	call    _pop
+    mov     ax, [snakeX]
+    mov     dx, [snakeY]
+    cmp     ax, [foodX]
+    jne     .endFoodCheck2
+    cmp     dx, [foodY]
+    jne     .endFoodCheck2
+    mov     byte [foodConsumed], 1
+    jmp     .skipPop2
+    .endFoodCheck2:
+    call    _pop
+    .skipPop2:
     sub     word [snakeX], 1
 	cmp 	word [snakeX], 0
 	je 		.not_alive
@@ -2735,7 +2833,17 @@ cmp     word [direction], 119
 
     jmp     .again
 .down:
-	call    _pop
+    mov     ax, [snakeX]
+    mov     dx, [snakeY]
+    cmp     ax, [foodX]
+    jne     .endFoodCheck3
+    cmp     dx, [foodY]
+    jne     .endFoodCheck3
+    mov     byte [foodConsumed], 1
+    jmp     .skipPop3
+    .endFoodCheck3:
+    call    _pop
+    .skipPop3:
     add     word [snakeY], 1
 	cmp 	word [snakeY], 19
 	je 		.not_alive
@@ -2747,7 +2855,17 @@ cmp     word [direction], 119
 	call	_push			
     jmp     .again
 .right:
-	call    _pop
+    mov     ax, [snakeX]
+    mov     dx, [snakeY]
+    cmp     ax, [foodX]
+    jne     .endFoodCheck4
+    cmp     dx, [foodY]
+    jne     .endFoodCheck4
+    mov     byte [foodConsumed], 1
+    jmp     .skipPop4
+    .endFoodCheck4:
+    call    _pop
+    .skipPop4:
     add     word [snakeX], 1
 	cmp 	word [snakeX], 31
 	je 		.not_alive
@@ -2764,6 +2882,7 @@ cmp     word [direction], 119
 	mov 	byte [dead], 1
 
 .again:
+    popa
 	ret
 	
 
@@ -2845,7 +2964,6 @@ setup:
 
 _push: 
     add     word [Place_holder], 2
-
     mov     cx, [stack_it]
     lea     bx, [snake_stack_X]
     add     bx, cx
@@ -2958,6 +3076,15 @@ IVT8_SEGMENT_SLOT	equ	IVT8_OFFSET_SLOT + 2
 testCounter       	dw 2
 stack_it 			dw 0
 stack_it_2          dw 0
+
+foodX               dw 0
+foodY               dw 0
+foodXCounter        dw 0
+foodYCounter        dw 0
+foodXs              dw 7, 30, 14, 6, 6, 17, 2, 5, 24, 27, 11, 8, 29, 22, 15, 1
+foodYs              dw 15, 4, 7, 13, 2, 9, 2, 11, 14, 1, 5, 8, 14, 6, 12
+
+foodConsumed        db 1
 
 ; Tick every ~0.16 seconds (3/18.2)
 tickSpeed			dw 0x3
