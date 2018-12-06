@@ -1,0 +1,45 @@
+
+	doMusic:
+;http://www.intel-assembler.it/portale/5/make-sound-from-the-speaker-in-assembly/8255-8255-8284-asm-program-example.asp
+mov     dx,1000          ; Number of times to repeat whole routine.
+
+mov     bx,500             ; Frequency value.
+
+mov     al, 10110110B    ; The Magic Number (use this binary number only)
+out     43H, al          ; Send it to the initializing port 43H Timer 2.
+
+next_frequency:          ; This is were we will jump back to 2000 times.
+
+mov     ax, bx           ; Move our Frequency value into ax.
+
+out     42H, al          ; Send LSB to port 42H.
+mov     al, ah           ; Move MSB into al  
+out     42H, al          ; Send MSB to port 42H.
+
+in      al, 61H          ; Get current value of port 61H.
+or      al, 00000011B    ; or al to this value, forcing first two bits high.
+out     61H, al          ; Copy it to port 61H of the PPI Chip
+                         ; to turn ON the speaker.
+
+mov     cx, 100          ; Repeat loop 100 times
+delay_loop:              ; Here is where we loop back too.
+loop    delay_loop       ; Jump repeatedly to DELAY_LOOP until cx = 0
+
+
+inc     bx               ; Incrementing the value of bx lowers 
+                         ; the frequency each time we repeat the
+                         ; whole routine
+
+dec     dx               ; Decrement repeat routine count
+
+cmp     dx, 0            ; Is dx (repeat count) = to 0
+jnz     next_frequency   ; If not jump to NEXT_FREQUENCY
+                         ; and do whole routine again.
+
+                         ; Else dx = 0 time to turn speaker OFF
+
+in      al,61H           ; Get current value of port 61H.
+and     al,11111100B     ; and al to this value, forcing first two bits low.
+out     61H,al           ; Copy it to port 61H of the PPI Chip
+                         ; to turn OFF the speaker.
+	ret
