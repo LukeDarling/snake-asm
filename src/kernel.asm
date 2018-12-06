@@ -2948,7 +2948,7 @@ setup:
 
     mov     word [stack_it], 0
     mov     word [stack_it_2], 0
-    mov     word [Place_holder], 0
+    mov     word [length_of_snake], 0
 
     mov 	dx, 9
     mov 	ax, 9
@@ -2964,7 +2964,7 @@ setup:
     ret
 
 _push: 
-    add     word [Place_holder], 2
+    add     word [length_of_snake], 2
     mov     cx, [stack_it]
     lea     bx, [snake_stack_X]
     add     bx, cx
@@ -2980,23 +2980,23 @@ _push:
     ret
 
 _pop:   
-	mov 	dx, [Place_holder]
+	mov 	dx, [length_of_snake]
 	mov 	cx, [stack_it]
 	sub 	cx, dx
     mov     [stack_it], cx
     lea     bx, [snake_stack_X]
     add     bx, cx 
-    mov     dx, [Place_holder]
+    mov     dx, [length_of_snake]
     add     cx, dx
     mov     [stack_it], cx
     mov     ax, [bx]
 
-    mov 	dx, [Place_holder]
+    mov 	dx, [length_of_snake]
 	mov 	cx, [stack_it_2]
 	sub 	cx, dx
     lea     bx, [snake_stack_Y]
     add     bx, cx 
-    mov     dx, [Place_holder]
+    mov     dx, [length_of_snake]
     add     cx, dx
     mov     [stack_it_2], cx
     mov     dx, [bx]
@@ -3007,7 +3007,7 @@ _pop:
 	mov 	di, [black_it_right_left]
 	call 	_draw_snake_block_2
 
-    sub     word [Place_holder], 2
+    sub     word [length_of_snake], 2
 
     ret 
 	
@@ -3023,14 +3023,13 @@ previous_direction  dw 0
 task_d_str 			db "I am the random food task", 13, 10, 0
 score               dw 0
 digits		        db	"0123456789abcdef"
-length_of_snake   	db 2
+length_of_snake   	dw 2
 black_it_right_left dw 0
 black_it_snakeY    dw 0
 dead				db 1
 running 			db 0
 lr                  db 0
 ud                  db 0
-Place_holder        dw 0
 
 
 current_task 		dw 0 ; must always be a multiple of 2
