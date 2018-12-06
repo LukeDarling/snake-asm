@@ -67,6 +67,46 @@ int     0x16
 
 
 
+;________________________START SNAKE BLOCK_______________________________________________
+mov		dx, [colorBlue]
+mov     si, 9        
+mov     di, 9
+call _draw_snake_block
+mov     si, 9        
+mov     di, 9
+mov 	[left_right], di
+mov 	[up_down], si
+mov 	ax, [left_right]
+mov 	dx, [up_down]
+call 	_push
+
+mov		dx, [colorBlue]
+mov     si, 9        
+mov     di, 10
+call _draw_snake_block
+mov     si, 9        
+mov     di, 9
+mov 	[left_right], di
+mov 	[up_down], si
+mov 	ax, [left_right]
+mov 	dx, [up_down]
+call 	_push
+
+mov		dx, [colorBlue]
+mov     si, 9        
+mov     di, 9
+call _draw_snake_block
+mov     si, 9        
+mov     di, 10
+mov 	[left_right], di
+mov 	[up_down], si
+mov 	ax, [left_right]
+mov 	dx, [up_down]
+call 	_push
+
+;__________________________END SNAKE BLOCK_______________________________________________
+
+
 
 
 
@@ -1800,7 +1840,6 @@ int     0x16
 	cmp 	bl, 20
 	je 		.contMainLoop
 	call 	drawBorder
-    call    setup
 	mov 	byte [running], 1
 	.endMainLoop:
 	call    yield
@@ -2462,7 +2501,7 @@ _draw_snake_block_2:
 
 	;di = row
 	;si = column
-_draw_snake_block:
+	_draw_snake_block:
 	;mov [lr], di
 	;mov [ud], si 
 	;mov al, [ud]
@@ -2702,52 +2741,52 @@ cmp     word [direction], 119
 	
 .up:
 	call    _pop
-    sub     word [snakeY], 1
-	cmp 	word [snakeY], 2
+    sub     word [up_down], 1
+	cmp 	word [up_down], 2
 	je 		.not_alive 
-	mov 	di, word [snakeY]
-	mov 	si, word [snakeX]
+	mov 	di, word [up_down]
+	mov 	si, word [left_right]
     call    _draw_snake_block
-	mov 	ah, [snakeX]
-	mov 	al, [snakeY]
+	mov 	dx, [left_right]
+	mov 	ax, [up_down]
 	call	_push
 
     jmp     .again
 .left:
 	call    _pop
-    sub     word [snakeX], 1
-	cmp 	word [snakeX], 0
+    sub     word [left_right], 1
+	cmp 	word [left_right], 0
 	je 		.not_alive
-	mov 	si, word [snakeX]
-	mov 	di, word [snakeY]
+	mov 	si, word [left_right]
+	mov 	di, word [up_down]
     call    _draw_snake_block
-	mov 	ah, [snakeX]
-	mov 	al, [snakeY]
+	mov 	dx, [left_right]
+	mov 	ax, [up_down]
 	call	_push
 
     jmp     .again
 .down:
 	call    _pop
-    add     word [snakeY], 1
-	cmp 	word [snakeY], 19
+    add     word [up_down], 1
+	cmp 	word [up_down], 19
 	je 		.not_alive
-	mov 	di, word [snakeY]
-	mov 	si, word [snakeX]
+	mov 	di, word [up_down]
+	mov 	si, word [left_right]
     call    _draw_snake_block
-	mov 	ah, [snakeX]
-	mov 	al, [snakeY]
+	mov 	dx, [left_right]
+	mov 	ax, [up_down]
 	call	_push			
     jmp     .again
 .right:
 	call    _pop
-    add     word [snakeX], 1
-	cmp 	word [snakeX], 31
+    add     word [left_right], 1
+	cmp 	word [left_right], 31
 	je 		.not_alive
-	mov 	si, word [snakeX]
-	mov 	di, word [snakeY]
+	mov 	si, word [left_right]
+	mov 	di, word [up_down]
     call    _draw_snake_block
-	mov 	ah, [snakeX]
-	mov 	al, [snakeY]
+	mov 	dx, [left_right]
+	mov 	ax, [up_down]
 	call	_push
 
     jmp     .again
@@ -2815,77 +2854,59 @@ OUT     61H,AL           ; Copy it to port 61H of the PPI Chip
                          ; to turn OFF the speaker.
 	ret
 
-
-setup:
-    ; Add initial snake block to the stack
-    mov 	al, 9
-    mov 	ah, 14
-    mov     [snakeX], al
-    mov     [snakeY], ah
-    call 	_push
-    mov     al, 9
-    mov     ah, 15
-    mov     [snakeX], al
-    mov     [snakeY], ah
-    call    _push
-    mov     al, 9
-    mov     ah, 16
-    mov     [snakeX], al
-    mov     [snakeY], ah
-    call    _push
-    ret
-
-
-
-
 _push: 
-    mov     cx, [top_of_snake_stack]
-    mov     bx, snake_stack
+    mov     cx, [stack_it]
+    lea     bx, [new_stack]
+    add     bx, cx
+    mov     [bx], dx
+    add     word [stack_it], 2
+
+    mov     cx, [stack_it_2]
+    lea     bx, [new_stack_2]
     add     bx, cx
     mov     [bx], ax
-    mov     si, [snakeX]
-    mov     di, [snakeY]
-    call    _draw_snake_block
-    mov     dx, [length_of_snake]
-    inc     dx
-    mov     [length_of_snake], dx
-    add     word [top_of_snake_stack], 1
+    add     word [stack_it_2], 2
     ret
 
 _pop:   
 	mov 	dx, [length_of_snake]
-	mov 	cx, [top_of_snake_stack]
-	sub 	cx, dx
-    mov     bx, snake_stack
+	mov 	cx, [stack_it]
+	sub 	cx, 2
+    mov     [stack_it], cx
+    lea     bx, [new_stack]
     add     bx, cx 
     mov     ax, [bx]
 
-	mov 	[black_it_right_left], al
-	mov 	[black_it_snakeY], ah
-	mov 	si, [black_it_snakeY]
+    mov 	dx, [length_of_snake]
+	mov 	cx, [stack_it_2]
+	sub 	cx, 2
+    mov     [stack_it_2], cx
+    lea     bx, [new_stack_2]
+    add     bx, cx 
+    mov     dx, [bx]
+
+	mov 	[black_it_right_left], dx
+	mov 	[black_it_up_down], ax
+	mov 	si, [black_it_up_down]
 	mov 	di, [black_it_right_left]
-    mov     dx, [length_of_snake]
-    dec     dx
-    mov     [length_of_snake], dx
 	call 	_draw_snake_block_2
     ret 
-
 	
 SECTION .data
 start_str           db "Snake game by A.S., L.D. J. DG", 13, 10, 0
 start_str_2         db "Press any key to continue ...", 13, 10, 0
 task_main_str 		db "I am task MAIN", 13, 10, 0
 task_a_str 			db "I am the music task", 13, 10, 0
-snakeX			dw 0
-snakeY 			dw 0
+left_right			dw 0
+up_down 			dw 0
 direction  			dw 0
 previous_direction  dw 0
 task_d_str 			db "I am the random food task", 13, 10, 0
 score               dw 0
 digits		        db	"0123456789abcdef"
-length_of_snake   	db 1
-black_it_right_left db 0
-black_it_snakeY    db 0
+length_of_snake   	db 2
+black_it_right_left dw 0
+black_it_up_down    dw 0
 dead				db 1
 running 			db 0
 lr                  db 0
@@ -2934,11 +2955,13 @@ IVT8_SEGMENT_SLOT	equ	IVT8_OFFSET_SLOT + 2
 
 
 testCounter       	dw 2
-top_of_snake_stack 			dw 0
+stack_it 			dw 0
+stack_it_2          dw 0
 
 ; Tick every ~0.16 seconds (3/18.2)
 tickSpeed			dw 0x3
 
 section .bss
 
-    snake_stack resw 1000
+    new_stack       resw 1000
+    new_stack_2     resw 1000
